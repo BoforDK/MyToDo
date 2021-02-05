@@ -43,11 +43,10 @@ struct AuthorizationView: View {
         .padding()
         .navigationBarHidden(true)
         .sheet(isPresented: $isPresented) {
-//            RegistrationView(viewModel: RegistrationViewModel(dimmis: {
-//                isPresented.toggle()
-//                viewModel.email = UserDefaults.standard.string(forKey: "email") ?? ""
-//                viewModel.password = UserDefaults.standard.string(forKey: "password") ?? ""
-//            }))
+            RegistrationView(viewModel: RegistrationViewModel(setEmailAndPassword: { email, password in
+                viewModel.email = email
+                viewModel.password = password
+            }))
         }
     }
 

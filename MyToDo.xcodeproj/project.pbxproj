@@ -17,8 +17,8 @@
 		1113797525BCA74200E371A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1113795F25BCA74200E371A6 /* Assets.xcassets */; };
 		1123902625CB329A00BED5C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1123902525CB329A00BED5C4 /* GoogleService-Info.plist */; };
 		1123902725CB329A00BED5C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1123902525CB329A00BED5C4 /* GoogleService-Info.plist */; };
-		1123907B25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123907A25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift */; };
-		1123907C25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123907A25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift */; };
+		1123907B25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123907A25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift */; };
+		1123907C25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123907A25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift */; };
 		1123908A25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123908925CC1F7D00BED5C4 /* AuthorizationView.swift */; };
 		1123908B25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123908925CC1F7D00BED5C4 /* AuthorizationView.swift */; };
 		1123908F25CC1F9A00BED5C4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1123908E25CC1F9A00BED5C4 /* MainViewModel.swift */; };
@@ -37,6 +37,10 @@
 		1150323225CD643300E07338 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323025CD643300E07338 /* UserViewModel.swift */; };
 		1150323625CD6E7D00E07338 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323525CD6E7D00E07338 /* User.swift */; };
 		1150323725CD6E7D00E07338 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323525CD6E7D00E07338 /* User.swift */; };
+		1150323B25CD91C300E07338 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323A25CD91C300E07338 /* RegistrationView.swift */; };
+		1150323C25CD91C300E07338 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323A25CD91C300E07338 /* RegistrationView.swift */; };
+		1150324025CD971D00E07338 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323F25CD971D00E07338 /* RegistrationViewModel.swift */; };
+		1150324125CD971D00E07338 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323F25CD971D00E07338 /* RegistrationViewModel.swift */; };
 		1178A72225CADE1700CDC7C1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178A72125CADE1700CDC7C1 /* Task.swift */; };
 		1178A72325CADE1700CDC7C1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178A72125CADE1700CDC7C1 /* Task.swift */; };
 		11941CC625CB1814006DB0D6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 11941CC525CB1814006DB0D6 /* FirebaseAnalytics */; };
@@ -75,7 +79,7 @@
 		1113796F25BCA74200E371A6 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		1123902525CB329A00BED5C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1123904625CB5E7400BED5C4 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		1123907A25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithEmailAndPassword.swift; sourceTree = "<group>"; };
+		1123907A25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationWithEmailAndPassword.swift; sourceTree = "<group>"; };
 		1123908625CC1E0400BED5C4 /* MyToDo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MyToDo.entitlements; sourceTree = "<group>"; };
 		1123908925CC1F7D00BED5C4 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		1123908E25CC1F9A00BED5C4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		1150322B25CD640A00E07338 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		1150323025CD643300E07338 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		1150323525CD6E7D00E07338 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1150323A25CD91C300E07338 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		1150323F25CD971D00E07338 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		1178A72125CADE1700CDC7C1 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		11941CD325CB187C006DB0D6 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +128,7 @@
 				1123908E25CC1F9A00BED5C4 /* MainViewModel.swift */,
 				112390AA25CC329000BED5C4 /* AuthorizationViewModel.swift */,
 				1150323025CD643300E07338 /* UserViewModel.swift */,
+				1150323F25CD971D00E07338 /* RegistrationViewModel.swift */,
 			);
 			path = VewModels;
 			sourceTree = "<group>";
@@ -183,7 +190,7 @@
 		1123903A25CB585600BED5C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1123907A25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift */,
+				1123907A25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -221,6 +228,7 @@
 				1123908925CC1F7D00BED5C4 /* AuthorizationView.swift */,
 				112390A325CC324500BED5C4 /* MainView.swift */,
 				1150322B25CD640A00E07338 /* UserView.swift */,
+				1150323A25CD91C300E07338 /* RegistrationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -344,11 +352,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1123907B25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift in Sources */,
+				1123907B25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */,
+				1150324025CD971D00E07338 /* RegistrationViewModel.swift in Sources */,
 				112390A425CC324500BED5C4 /* MainView.swift in Sources */,
 				11941CD425CB187C006DB0D6 /* TaskRepository.swift in Sources */,
 				1113797225BCA74200E371A6 /* TaskListView.swift in Sources */,
 				1150323625CD6E7D00E07338 /* User.swift in Sources */,
+				1150323B25CD91C300E07338 /* RegistrationView.swift in Sources */,
 				112390AB25CC329000BED5C4 /* AuthorizationViewModel.swift in Sources */,
 				1102225125CAF23B00C49CD1 /* TaskCellViewModel.swift in Sources */,
 				1123909B25CC231600BED5C4 /* System.swift in Sources */,
@@ -369,16 +379,18 @@
 			files = (
 				112390AC25CC329000BED5C4 /* AuthorizationViewModel.swift in Sources */,
 				1123909C25CC231600BED5C4 /* System.swift in Sources */,
-				1123907C25CC17C700BED5C4 /* SignInWithEmailAndPassword.swift in Sources */,
+				1123907C25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */,
 				1123909725CC22FE00BED5C4 /* Feedback.swift in Sources */,
 				1113797325BCA74200E371A6 /* TaskListView.swift in Sources */,
 				1178A72325CADE1700CDC7C1 /* Task.swift in Sources */,
 				1150323725CD6E7D00E07338 /* User.swift in Sources */,
 				1123909025CC1F9A00BED5C4 /* MainViewModel.swift in Sources */,
 				1150322D25CD640A00E07338 /* UserView.swift in Sources */,
+				1150323C25CD91C300E07338 /* RegistrationView.swift in Sources */,
 				112390A525CC324500BED5C4 /* MainView.swift in Sources */,
 				1150323225CD643300E07338 /* UserViewModel.swift in Sources */,
 				11941CD525CB187C006DB0D6 /* TaskRepository.swift in Sources */,
+				1150324125CD971D00E07338 /* RegistrationViewModel.swift in Sources */,
 				1123908B25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */,
 				1113797125BCA74200E371A6 /* MyToDoApp.swift in Sources */,
 			);

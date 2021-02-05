@@ -12,7 +12,7 @@ struct UserView: View {
 //    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack {
+        Section {
             Text("User image")
             Text("Email")
             Text("Setting")
