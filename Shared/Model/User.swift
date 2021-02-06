@@ -7,6 +7,9 @@
 
 import Foundation
 
-class User {
-    
+struct User {
+    var email: String
+    var password: String
+    var isShowingPassword: Bool
+    var autoLogin: Bool
 }
