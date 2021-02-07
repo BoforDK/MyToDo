@@ -14,16 +14,10 @@ struct Task: Codable, Identifiable {
     @DocumentID var id: String?
     var title: String = ""
     var completed: Bool = true
+    var isImportant: Bool = true
     @ServerTimestamp var createdTime: Timestamp?
+    @ServerTimestamp var plannedDay: Timestamp?
     var userId: String?
+    var folderId: String?
 }
 
-
-#if DEBUG
-let testDataTasks = [
-    Task(title: "Implement the UI", completed: true),
-    Task(title: "Connect to Firebase", completed: false),
-    Task(title: "????", completed: false),
-    Task(title: "Profit????", completed: false)
-]
-#endif

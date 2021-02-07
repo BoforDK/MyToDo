@@ -9,7 +9,6 @@ import SwiftUI
 
 struct UserView: View {
     @ObservedObject var viewModel: UserViewModel
-//    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         Section {
@@ -19,7 +18,6 @@ struct UserView: View {
             Toggle("Auto login", isOn: $viewModel.autoLogin)
             Text("Change password")
             Button("Logout", action: {
-//                self.presentationMode.wrappedValue.dismiss()
                 viewModel.logout()
             })
         }

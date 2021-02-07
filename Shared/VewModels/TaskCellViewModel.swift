@@ -1,6 +1,6 @@
 //
 //  TaskCellViewModel.swift
-//  MyToDo (iOS)
+//  MyToDo
 //
 //  Created by Alexander on 2/3/21.
 //

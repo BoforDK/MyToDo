@@ -41,6 +41,23 @@
 		1150323C25CD91C300E07338 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323A25CD91C300E07338 /* RegistrationView.swift */; };
 		1150324025CD971D00E07338 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323F25CD971D00E07338 /* RegistrationViewModel.swift */; };
 		1150324125CD971D00E07338 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150323F25CD971D00E07338 /* RegistrationViewModel.swift */; };
+		1150324725CDB3BD00E07338 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1150324625CDB3BD00E07338 /* FirebaseAuth */; };
+		1150324925CDB3C300E07338 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1150324825CDB3C300E07338 /* FirebaseFirestore */; };
+		1150324B25CDB3C700E07338 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 1150324A25CDB3C700E07338 /* FirebaseFirestoreSwift-Beta */; };
+		1150324E25CDB60400E07338 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102225025CAF23B00C49CD1 /* TaskCellViewModel.swift */; };
+		1150324F25CDB60400E07338 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102225625CAF47E00C49CD1 /* TaskListViewModel.swift */; };
+		1150325325CE0CE700E07338 /* FolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325225CE0CE600E07338 /* FolderRepository.swift */; };
+		1150325425CE0CE700E07338 /* FolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325225CE0CE600E07338 /* FolderRepository.swift */; };
+		1150325825CE0D2C00E07338 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325725CE0D2C00E07338 /* Folder.swift */; };
+		1150325925CE0D2C00E07338 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325725CE0D2C00E07338 /* Folder.swift */; };
+		1150325F25CE0F2A00E07338 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325E25CE0F2A00E07338 /* UserRepository.swift */; };
+		1150326025CE0F2A00E07338 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150325E25CE0F2A00E07338 /* UserRepository.swift */; };
+		1150326425CE172500E07338 /* FolderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326325CE172500E07338 /* FolderListView.swift */; };
+		1150326525CE172500E07338 /* FolderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326325CE172500E07338 /* FolderListView.swift */; };
+		1150326925CE176A00E07338 /* FolderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326825CE176A00E07338 /* FolderListViewModel.swift */; };
+		1150326A25CE176A00E07338 /* FolderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326825CE176A00E07338 /* FolderListViewModel.swift */; };
+		1150326E25CE183700E07338 /* FolderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326D25CE183700E07338 /* FolderCellViewModel.swift */; };
+		1150326F25CE183700E07338 /* FolderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150326D25CE183700E07338 /* FolderCellViewModel.swift */; };
 		1178A72225CADE1700CDC7C1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178A72125CADE1700CDC7C1 /* Task.swift */; };
 		1178A72325CADE1700CDC7C1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178A72125CADE1700CDC7C1 /* Task.swift */; };
 		11941CC625CB1814006DB0D6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 11941CC525CB1814006DB0D6 /* FirebaseAnalytics */; };
@@ -92,6 +109,12 @@
 		1150323525CD6E7D00E07338 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1150323A25CD91C300E07338 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		1150323F25CD971D00E07338 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		1150325225CE0CE600E07338 /* FolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRepository.swift; sourceTree = "<group>"; };
+		1150325725CE0D2C00E07338 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		1150325E25CE0F2A00E07338 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		1150326325CE172500E07338 /* FolderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListView.swift; sourceTree = "<group>"; };
+		1150326825CE176A00E07338 /* FolderListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListViewModel.swift; sourceTree = "<group>"; };
+		1150326D25CE183700E07338 /* FolderCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCellViewModel.swift; sourceTree = "<group>"; };
 		1178A72125CADE1700CDC7C1 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		11941CD325CB187C006DB0D6 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +137,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1150324B25CDB3C700E07338 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				1150324725CDB3BD00E07338 /* FirebaseAuth in Frameworks */,
+				1150324925CDB3C300E07338 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +155,8 @@
 				112390AA25CC329000BED5C4 /* AuthorizationViewModel.swift */,
 				1150323025CD643300E07338 /* UserViewModel.swift */,
 				1150323F25CD971D00E07338 /* RegistrationViewModel.swift */,
+				1150326825CE176A00E07338 /* FolderListViewModel.swift */,
+				1150326D25CE183700E07338 /* FolderCellViewModel.swift */,
 			);
 			path = VewModels;
 			sourceTree = "<group>";
@@ -217,6 +245,7 @@
 			children = (
 				1178A72125CADE1700CDC7C1 /* Task.swift */,
 				1150323525CD6E7D00E07338 /* User.swift */,
+				1150325725CE0D2C00E07338 /* Folder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,6 +258,7 @@
 				112390A325CC324500BED5C4 /* MainView.swift */,
 				1150322B25CD640A00E07338 /* UserView.swift */,
 				1150323A25CD91C300E07338 /* RegistrationView.swift */,
+				1150326325CE172500E07338 /* FolderListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				11941CD325CB187C006DB0D6 /* TaskRepository.swift */,
+				1150325225CE0CE600E07338 /* FolderRepository.swift */,
+				1150325E25CE0F2A00E07338 /* UserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -283,6 +315,11 @@
 			dependencies = (
 			);
 			name = "MyToDo (macOS)";
+			packageProductDependencies = (
+				1150324625CDB3BD00E07338 /* FirebaseAuth */,
+				1150324825CDB3C300E07338 /* FirebaseFirestore */,
+				1150324A25CDB3C700E07338 /* FirebaseFirestoreSwift-Beta */,
+			);
 			productName = "MyToDo (macOS)";
 			productReference = 1113796C25BCA74200E371A6 /* MyToDo.app */;
 			productType = "com.apple.product-type.application";
@@ -352,21 +389,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1150325325CE0CE700E07338 /* FolderRepository.swift in Sources */,
 				1123907B25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */,
 				1150324025CD971D00E07338 /* RegistrationViewModel.swift in Sources */,
 				112390A425CC324500BED5C4 /* MainView.swift in Sources */,
 				11941CD425CB187C006DB0D6 /* TaskRepository.swift in Sources */,
+				1150326925CE176A00E07338 /* FolderListViewModel.swift in Sources */,
 				1113797225BCA74200E371A6 /* TaskListView.swift in Sources */,
 				1150323625CD6E7D00E07338 /* User.swift in Sources */,
 				1150323B25CD91C300E07338 /* RegistrationView.swift in Sources */,
 				112390AB25CC329000BED5C4 /* AuthorizationViewModel.swift in Sources */,
 				1102225125CAF23B00C49CD1 /* TaskCellViewModel.swift in Sources */,
 				1123909B25CC231600BED5C4 /* System.swift in Sources */,
+				1150326E25CE183700E07338 /* FolderCellViewModel.swift in Sources */,
+				1150325825CE0D2C00E07338 /* Folder.swift in Sources */,
+				1150326425CE172500E07338 /* FolderListView.swift in Sources */,
 				1123909625CC22FE00BED5C4 /* Feedback.swift in Sources */,
 				1123908F25CC1F9A00BED5C4 /* MainViewModel.swift in Sources */,
 				1102225725CAF47E00C49CD1 /* TaskListViewModel.swift in Sources */,
 				1178A72225CADE1700CDC7C1 /* Task.swift in Sources */,
 				1113797025BCA74200E371A6 /* MyToDoApp.swift in Sources */,
+				1150325F25CE0F2A00E07338 /* UserRepository.swift in Sources */,
 				1123908A25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */,
 				1150323125CD643300E07338 /* UserViewModel.swift in Sources */,
 				1150322C25CD640A00E07338 /* UserView.swift in Sources */,
@@ -377,19 +420,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1150325425CE0CE700E07338 /* FolderRepository.swift in Sources */,
+				1150324E25CDB60400E07338 /* TaskCellViewModel.swift in Sources */,
+				1150324F25CDB60400E07338 /* TaskListViewModel.swift in Sources */,
 				112390AC25CC329000BED5C4 /* AuthorizationViewModel.swift in Sources */,
 				1123909C25CC231600BED5C4 /* System.swift in Sources */,
+				1150326A25CE176A00E07338 /* FolderListViewModel.swift in Sources */,
 				1123907C25CC17C700BED5C4 /* AuthenticationWithEmailAndPassword.swift in Sources */,
 				1123909725CC22FE00BED5C4 /* Feedback.swift in Sources */,
 				1113797325BCA74200E371A6 /* TaskListView.swift in Sources */,
 				1178A72325CADE1700CDC7C1 /* Task.swift in Sources */,
 				1150323725CD6E7D00E07338 /* User.swift in Sources */,
 				1123909025CC1F9A00BED5C4 /* MainViewModel.swift in Sources */,
+				1150326F25CE183700E07338 /* FolderCellViewModel.swift in Sources */,
+				1150325925CE0D2C00E07338 /* Folder.swift in Sources */,
+				1150326525CE172500E07338 /* FolderListView.swift in Sources */,
 				1150322D25CD640A00E07338 /* UserView.swift in Sources */,
 				1150323C25CD91C300E07338 /* RegistrationView.swift in Sources */,
 				112390A525CC324500BED5C4 /* MainView.swift in Sources */,
 				1150323225CD643300E07338 /* UserViewModel.swift in Sources */,
 				11941CD525CB187C006DB0D6 /* TaskRepository.swift in Sources */,
+				1150326025CE0F2A00E07338 /* UserRepository.swift in Sources */,
 				1150324125CD971D00E07338 /* RegistrationViewModel.swift in Sources */,
 				1123908B25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */,
 				1113797125BCA74200E371A6 /* MyToDoApp.swift in Sources */,
@@ -653,6 +704,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1150324625CDB3BD00E07338 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11941CC425CB1814006DB0D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1150324825CDB3C300E07338 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11941CC425CB1814006DB0D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		1150324A25CDB3C700E07338 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11941CC425CB1814006DB0D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
 		11941CC525CB1814006DB0D6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11941CC425CB1814006DB0D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
