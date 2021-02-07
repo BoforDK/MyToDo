@@ -30,8 +30,7 @@ class TaskRepository: ObservableObject {
             if let querySnapshot = querySnapshot {
                 self.tasks = querySnapshot.documents.compactMap{ document in
                     do {
-                        let x = try document.data(as: Task.self)
-                        return x
+                        return try document.data(as: Task.self)
                     } catch let error{
                         print(error)
                     }

@@ -20,10 +20,6 @@ struct MainView: View {
         case .checking:
             ProgressView("Loading...")
         case .successful:
-//            TaskListView(viewModel: TaskListViewModel(logout:  {
-//                viewModel.cancelAutoAuth()
-//                viewModel.send(event: .onLogout)
-//            }))
             FolderListView(viewModel: FolderListViewModel(logout: {
                 viewModel.cancelAutoAuth()
                 viewModel.send(event: .onLogout)

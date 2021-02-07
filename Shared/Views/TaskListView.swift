@@ -77,16 +77,23 @@ struct TaskCell: View {
             }
             if let plannedDay = taskCellVM.task.plannedDay {
                 Text(plannedDay.dateValue().description)
+            } else {
+                DatePickerView()
             }
         }
     }
 }
 
-//struct DatePickerView: View {
-//    @State var date: Date = Date()
-//
-//    var body: some View {
-//        Text("Date")
-////        DatePicker(date: date)
-//    }
-//}
+struct DatePickerView: View {
+    @State var date: Date = Date()
+
+    var body: some View {
+        DatePicker(
+            "Start Date",
+            selection: $date,
+            in: Date()...,
+            displayedComponents: [.date]
+        )
+//        .datePickerStyle(GraphicalDatePickerStyle())
+    }
+}

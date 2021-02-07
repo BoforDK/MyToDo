@@ -28,7 +28,7 @@ struct AuthorizationView: View {
                     Text("error auth")
                 }
                 
-                Toggle(isOn: $viewModel.autoLogin) {
+                Toggle(isOn: $viewModel.user.autoLogin) {
                     Text("Auto authorization?")
                 }
                 .padding()
@@ -44,8 +44,8 @@ struct AuthorizationView: View {
         .sheet(isPresented: $isPresented) {
             RegistrationView(viewModel: RegistrationViewModel(setEmailAndPassword: { email, password in
                 isPresented.toggle()
-                viewModel.email = email
-                viewModel.password = password
+                viewModel.user.email = email
+                viewModel.user.password = password
             }))
         }
     }
@@ -71,7 +71,7 @@ struct AuthorizationView: View {
         HStack {
             Image(systemName: "person")
                 .foregroundColor(accentColor)
-            TextField("Email", text: $viewModel.email)
+            TextField("Email", text: $viewModel.user.email)
         }
         .padding()
         .background(lightGreyColor)
@@ -83,16 +83,16 @@ struct AuthorizationView: View {
         HStack {
             Image(systemName: "lock")
                 .foregroundColor(accentColor)
-            if viewModel.isShowingPassword {
-                TextField("Password", text: $viewModel.password)
+            if viewModel.user.isShowingPassword {
+                TextField("Password", text: $viewModel.user.password)
             } else {
-                SecureField("Password", text: $viewModel.password)
+                SecureField("Password", text: $viewModel.user.password)
             }
 
             Button(action: {
-                self.viewModel.isShowingPassword.toggle()
+                self.viewModel.user.isShowingPassword.toggle()
             }) {
-                Image(systemName: self.viewModel.isShowingPassword ?
+                Image(systemName: self.viewModel.user.isShowingPassword ?
                         "eye.fill"
                         :
                         "eye.slash.fill")
@@ -107,7 +107,7 @@ struct AuthorizationView: View {
  
     var loginBtn: some View {
         Button(action: {
-            self.viewModel.sendLoginEvent(viewModel.email, viewModel.password)
+            self.viewModel.sendLoginEvent(viewModel.user.email, viewModel.user.password)
         }) {
             Text("LOGIN")
                 .font(.headline)
