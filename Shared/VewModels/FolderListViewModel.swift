@@ -16,33 +16,17 @@ class FolderListViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-//    var pinnedFolder = [FolderCellViewModel]()
-    
     
     init(logout: @escaping () -> Void) {
         self.logout = logout
         folderRepository.$folders.map { folder in
             folder
-//                .filter { folder in
-//                    folder.title != "Importatn"
-//                }
                 .map { folder in
                     FolderCellViewModel(folder: folder)
                 }
         }
         .assign(to: \.folderCellViewModels, on: self)
         .store(in: &cancellables)
-//        folderRepository.$folders.map { folder in
-//            folder
-//                .filter { folder in
-//                    folder.
-//                }
-//                .map { folder in
-//                    FolderCellViewModel(folder: folder)
-//                }
-//        }
-//        .assign(to: \.pinnedFolder, on: self)
-//        .store(in: &cancellables)
     }
     
     private func findFolder(name: String) -> FolderCellViewModel {

@@ -32,9 +32,18 @@ struct FolderListView: View {
     }
     
     var pinnedFolders: some View{
-        Section(header: Text("Pinned folders"), footer: Text("????")) {
+        Section(header: Text("Pinned folders")) {
             NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .Important)), label: {
                 Text(PinnedFolder.Important.rawValue)
+            })
+            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .Today)), label: {
+                Text(PinnedFolder.Today.rawValue)
+            })
+            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .Undelivered)), label: {
+                Text(PinnedFolder.Undelivered.rawValue)
+            })
+            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .AllToDos)), label: {
+                Text(PinnedFolder.AllToDos.rawValue)
             })
         }
     }

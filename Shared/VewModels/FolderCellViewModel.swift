@@ -10,7 +10,6 @@ import Combine
 
 class FolderCellViewModel: ObservableObject, Identifiable {
     @Published var folder: Folder
-    @Published var  completionStateIconName = ""
     var id: String = ""
     @Published var folderRepository = FolderRepository()
     
@@ -18,13 +17,6 @@ class FolderCellViewModel: ObservableObject, Identifiable {
     
     init(folder: Folder) {
         self.folder = folder
-        
-//        $folder
-//            .map { task in
-//                task.completed ? "checkmark.circle.fill" : "circle"
-//            }
-//            .assign(to: \.completionStateIconName, on: self)
-//            .store(in: &cancellables)
 
         $folder
             .compactMap { task in

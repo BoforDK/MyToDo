@@ -54,6 +54,8 @@ struct TaskCell: View {
     
     var onCommit: (Task) -> Void = { _ in }
     
+    @State var isPresented = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -66,10 +68,25 @@ struct TaskCell: View {
                 TextField("Enter the task title", text: $taskCellVM.task.title, onCommit: {
                     self.onCommit(self.taskCellVM.task)
                 })
+                Image(systemName: taskCellVM.task.isImportant ? "star.fill" : "star")
+                    .resizable()
+                    .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        self.taskCellVM.task.isImportant.toggle()
+                    }
             }
-            if let createdTime = taskCellVM.task.createdTime{
-                Text(createdTime.dateValue().description)
+            if let plannedDay = taskCellVM.task.plannedDay {
+                Text(plannedDay.dateValue().description)
             }
         }
     }
 }
+
+//struct DatePickerView: View {
+//    @State var date: Date = Date()
+//
+//    var body: some View {
+//        Text("Date")
+////        DatePicker(date: date)
+//    }
+//}

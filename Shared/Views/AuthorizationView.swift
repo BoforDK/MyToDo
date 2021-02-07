@@ -11,7 +11,6 @@ struct AuthorizationView: View {
     @ObservedObject var viewModel: AuthorizationViewModel
     @State var isPresented = false
     @State var errorAuth = false
-//    var event: (String, String) -> Void
 
     let lightGreyColor = Color(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, opacity: 0.6)
     var accentColor: Color = Color(red: 125/255, green: 63/255, blue: 98/255)
@@ -48,11 +47,6 @@ struct AuthorizationView: View {
                 viewModel.email = email
                 viewModel.password = password
             }))
-//            RegistrationView(viewModel: RegistrationViewModel(dimmis: {
-//                isPresented.toggle()
-//                viewModel.email = UserDefaults.standard.string(forKey: "email") ?? ""
-//                viewModel.password = UserDefaults.standard.string(forKey: "password") ?? ""
-//            }))
         }
     }
 

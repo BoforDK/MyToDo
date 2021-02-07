@@ -16,7 +16,7 @@ struct Task: Codable, Identifiable {
     var completed: Bool = true
     var isImportant: Bool = true
     @ServerTimestamp var createdTime: Timestamp?
-    @ServerTimestamp var plannedDay: Timestamp?
+    var plannedDay: Timestamp?
     var userId: String?
     var folderId: String?
 }

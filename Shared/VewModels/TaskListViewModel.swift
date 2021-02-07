@@ -60,7 +60,7 @@ enum PinnedFolder: String {
             return { task in !task.completed }
         case .Today:
             return { task in
-                guard let taskDate = task.createdTime?.dateValue() else {
+                guard let taskDate = task.plannedDay?.dateValue() else {
                     return false
                 }
                 let day = Calendar.current.component(.day, from: taskDate)
