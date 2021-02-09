@@ -22,7 +22,7 @@ class TaskListViewModel: ObservableObject {
             .map { task in
                 task
                     .filter { $0.folderId == self.currentFolder.id }
-                    .map (TaskCellViewModel.init)
+                    .map { TaskCellViewModel(task: $0) }
             }
             .assign(to: \.taskCellViewModels, on: self)
             .store(in: &cancellables)
@@ -35,7 +35,7 @@ class TaskListViewModel: ObservableObject {
             .map { task in
                 task
                     .filter { filter($0) }
-                    .map (TaskCellViewModel.init)
+                    .map { TaskCellViewModel(task: $0) }
             }
             .assign(to: \.taskCellViewModels, on: self)
             .store(in: &cancellables)

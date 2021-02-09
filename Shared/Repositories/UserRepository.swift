@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class UserRepository: ObservableObject {
     private var email: String = UserDefaults.standard.string(forKey: "email") ?? "" {
@@ -29,11 +32,14 @@ class UserRepository: ObservableObject {
         }
     }
     
+    private var uid = Auth.auth().currentUser!.uid
+    
     var user: User {
         User(email: email,
              password: password,
              isShowingPassword: isShowingPassword,
-             autoLogin: autoLogin)
+             autoLogin: autoLogin,
+             uid: uid)
     }
     
     
@@ -46,5 +52,6 @@ class UserRepository: ObservableObject {
         self.password = newUser.password
         self.isShowingPassword = newUser.isShowingPassword
         self.autoLogin = newUser.autoLogin
+        self.uid = newUser.uid
     }
 }

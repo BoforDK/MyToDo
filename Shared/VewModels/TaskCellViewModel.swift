@@ -11,12 +11,13 @@ import Combine
 class TaskCellViewModel: ObservableObject, Identifiable {
     @Published var task: Task
     var id: String = ""
-    @Published var taskRepository = TaskRepository()
+    @Published var taskRepository: TaskRepository
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(task: Task) {
+    init(task: Task, taskRepository: TaskRepository = TaskRepository()) {
         self.task = task
+        self.taskRepository = taskRepository
         
         $task
             .compactMap { task in

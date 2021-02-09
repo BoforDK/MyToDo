@@ -6,32 +6,49 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 class UserViewModel: ObservableObject {
     var logout: () -> Void
+    @Published var image: UIImage
+    @Published var storage: FBStorage
     
-    @Published var email: String = UserDefaults.standard.string(forKey: "email") ?? "test@gmail.com" {
-        didSet {
-            UserDefaults.standard.setValue(email, forKey: "email")
-        }
-    }
-    @Published var password: String = UserDefaults.standard.string(forKey: "password") ?? "123456" {
-        didSet {
-            UserDefaults.standard.setValue(password, forKey: "password")
-        }
-    }
-    @Published var isShowingPassword = UserDefaults.standard.bool(forKey: "isShowingPassword") {
-        didSet {
-            UserDefaults.standard.setValue(isShowingPassword, forKey: "isShowingPassword")
-        }
-    }
-    @Published var autoLogin: Bool = UserDefaults.standard.bool(forKey: "autoLogin") {
-        didSet {
-            UserDefaults.standard.setValue(autoLogin, forKey: "autoLogin")
-        }
-    }
+    private var cancellables = Set<AnyCancellable>()
     
-    init(logout: @escaping () -> Void) {
+    init(logout: @escaping () -> Void, image: UIImage = UIImage(), storage: FBStorage) {
         self.logout = logout
+        self.image = image
+        self.storage = storage
+
+    }
+    
+    func updateImage() {
+        self.storage.downloadImage()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("ImageCellViewModel: \(error)")
+                default:
+                    return
+                }
+            }, receiveValue: { output in
+                self.image = output
+            })
+            .store(in: &cancellables)
+    }
+    
+    func uploadImage(_ newImage: UIImage) {
+        storage.uploadImage(img: newImage)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("ImageCellViewModel: \(error)")
+                default:
+                    self.updateImage()
+                    return
+                }
+            }, receiveValue: { _ in })
+            .store(in: &cancellables)
     }
 }

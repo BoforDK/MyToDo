@@ -12,4 +12,5 @@ struct User {
     var password: String
     var isShowingPassword: Bool
     var autoLogin: Bool
+    var uid: String
 }

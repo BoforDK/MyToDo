@@ -10,62 +10,72 @@ import UIKit
 
 struct UserView: View {
     @ObservedObject var viewModel: UserViewModel
-    @State private var image = UIImage()
     @State private var isShowPhotoLibrary = false
     
     var body: some View {
-        Section {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .edgesIgnoringSafeArea(.all)
-            
-            Button(action: {
-                        self.isShowPhotoLibrary = true
-                    }) {
-                        HStack {
-                            Image(systemName: "photo")
-                                .font(.system(size: 20))
-         
-                            Text("Photo library")
-                                .font(.headline)
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                        .padding(.horizontal)
-                    }
+        ScrollView {
+            Section {
+                Image(uiImage: viewModel.image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .edgesIgnoringSafeArea(.all)
                 
-            Text("User image")
-            Text("Email")
-            Text("Setting")
-            Text("Change password")
-            Button("Logout", action: {
-                viewModel.logout()
-            })
-            
-        }
-        .sheet(isPresented: $isShowPhotoLibrary) {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
+                Button(action: {
+                            self.isShowPhotoLibrary = true
+                        }) {
+                            HStack {
+                                Image(systemName: "photo")
+                                    .font(.system(size: 20))
+             
+                                Text("Photo library")
+                                    .font(.headline)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                        }
+                Button("Logout", action: {
+                    viewModel.logout()
+                })
+                
+                Text("User image")
+                Text("Email")
+                Text("Setting")
+                Text("Change password")
+                Text("Change password")
+                
+            }
+            .sheet(isPresented: $isShowPhotoLibrary) {
+                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$viewModel.image) { image in
+                    viewModel.uploadImage(image)
+                }
+            }
+            .onAppear {
+                viewModel.updateImage()
+            }
         }
     }
 }
 
 struct UserView_Previews: PreviewProvider {
     static var previews: some View {
-        UserView(viewModel: UserViewModel(logout: {}))
+        UserView(viewModel: UserViewModel(logout: {}, storage: FBStorage(uid: "")))
     }
 }
 
 
 struct ImagePicker: UIViewControllerRepresentable {
     
+    @Environment(\.presentationMode) private var presentationMode
+    
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @Binding var selectedImage: UIImage
-    @Environment(\.presentationMode) private var presentationMode
+    
+    var uploadImage: (UIImage) -> Void
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         
@@ -97,6 +107,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage = image
+                parent.uploadImage(parent.selectedImage)
             }
             
             parent.presentationMode.wrappedValue.dismiss()

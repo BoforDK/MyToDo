@@ -23,7 +23,8 @@ struct FolderListView: View {
             }
             
             addFolderButton
-            NavigationLink(destination: UserView(viewModel: UserViewModel(logout: { viewModel.logout() })), isActive: $showUserView) {
+            
+            NavigationLink(destination: UserView(viewModel: UserViewModel(logout: { viewModel.logout() }, storage: FBStorage(uid: UserRepository().user.uid))), isActive: $showUserView) {
                 EmptyView()
             }
         }

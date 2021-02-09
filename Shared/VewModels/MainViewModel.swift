@@ -11,7 +11,6 @@ import Combine
 
 final class MainViewModel: ObservableObject {
     @Published private(set) var state: State = State.authorization
-//    @Published var cancellable: AnyCancellable?
 
     private var bag = Set<AnyCancellable>()
 
@@ -112,9 +111,7 @@ extension MainViewModel {
             
             let tmp = AuthenticationWithEmailAndPassword()
             
-            return tmp.signIn(email: email, password: password, isGoodResult: { isAuth in
-                    print(isAuth)
-                })
+            return tmp.signIn(email: email, password: password)
                 .map { _ in Event.onSuccessful }
                 .catch { Just(Event.onFailed($0)) }
                 .eraseToAnyPublisher()
