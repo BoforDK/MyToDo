@@ -13,11 +13,16 @@ struct TaskListView: View {
     @State var presentAddNewItem = false
     @State var showSignInForm = false
     
+    @State var isShowDetails = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             List {
                 ForEach(viewModel.taskCellViewModels) { taskCellVM in
-                    TaskCell(taskCellVM: taskCellVM)
+                    TaskCell(taskCellVM: taskCellVM) { taskCellVM in
+                        isShowDetails = true
+                        self.viewModel.taskDetails = taskCellVM
+                    }
                 }
                 .onDelete(perform: {offsets in
                     viewModel.deleteTask(at: offsets, tasks: viewModel.taskCellViewModels)
@@ -28,7 +33,8 @@ struct TaskListView: View {
                         onCommit: { task in
                                 self.viewModel.addTask(task: task)
                                 self.presentAddNewItem.toggle()
-                            }
+                            },
+                        isShowDetails: { _ in }
                     )
                 }
             }
@@ -45,6 +51,9 @@ struct TaskListView: View {
             .padding()
         }
         .navigationTitle(viewModel.currentFolder.title)
+        .sheet(isPresented: $isShowDetails) {
+            TaskDetailsView(taskCellVM: viewModel.taskDetails ?? TaskCellViewModel(task: Task()))
+        }
     }
 }
 
@@ -59,6 +68,8 @@ struct TaskCell: View {
     @ObservedObject var taskCellVM: TaskCellViewModel
     
     var onCommit: (Task) -> Void = { _ in }
+    
+    var isShowDetails: (TaskCellViewModel) -> Void
     
     @State var isPresented = false
     
@@ -85,5 +96,8 @@ struct TaskCell: View {
                 Text(plannedDay.dateValue().description)
             }
         }
+        .onLongPressGesture(minimumDuration: 0.5) {
+                            isShowDetails(taskCellVM)
+                        }
     }
 }
