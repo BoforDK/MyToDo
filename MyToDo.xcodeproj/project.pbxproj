@@ -11,6 +11,10 @@
 		1102225725CAF47E00C49CD1 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102225625CAF47E00C49CD1 /* TaskListViewModel.swift */; };
 		110841A825D2B2EF009A3A5B /* FBStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841A725D2B2EF009A3A5B /* FBStorage.swift */; };
 		110841A925D2B2EF009A3A5B /* FBStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841A725D2B2EF009A3A5B /* FBStorage.swift */; };
+		110841B425D32AD6009A3A5B /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841B325D32AD6009A3A5B /* ImageCellViewModel.swift */; };
+		110841B525D32AD6009A3A5B /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841B325D32AD6009A3A5B /* ImageCellViewModel.swift */; };
+		110841B925D33654009A3A5B /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841B825D33654009A3A5B /* CaptureImageView.swift */; };
+		110841BA25D33654009A3A5B /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110841B825D33654009A3A5B /* CaptureImageView.swift */; };
 		1113797025BCA74200E371A6 /* MyToDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113795D25BCA73D00E371A6 /* MyToDoApp.swift */; };
 		1113797125BCA74200E371A6 /* MyToDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113795D25BCA73D00E371A6 /* MyToDoApp.swift */; };
 		1113797225BCA74200E371A6 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113795E25BCA73D00E371A6 /* TaskListView.swift */; };
@@ -89,6 +93,8 @@
 		1102225025CAF23B00C49CD1 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		1102225625CAF47E00C49CD1 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		110841A725D2B2EF009A3A5B /* FBStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBStorage.swift; sourceTree = "<group>"; };
+		110841B325D32AD6009A3A5B /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
+		110841B825D33654009A3A5B /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
 		1113795D25BCA73D00E371A6 /* MyToDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToDoApp.swift; sourceTree = "<group>"; };
 		1113795E25BCA73D00E371A6 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		1113795F25BCA74200E371A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -160,6 +166,7 @@
 				1150323F25CD971D00E07338 /* RegistrationViewModel.swift */,
 				1150326825CE176A00E07338 /* FolderListViewModel.swift */,
 				1150326D25CE183700E07338 /* FolderCellViewModel.swift */,
+				110841B325D32AD6009A3A5B /* ImageCellViewModel.swift */,
 			);
 			path = VewModels;
 			sourceTree = "<group>";
@@ -263,6 +270,7 @@
 				1150322B25CD640A00E07338 /* UserView.swift */,
 				1150323A25CD91C300E07338 /* RegistrationView.swift */,
 				1150326325CE172500E07338 /* FolderListView.swift */,
+				110841B825D33654009A3A5B /* CaptureImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +415,7 @@
 				1102225125CAF23B00C49CD1 /* TaskCellViewModel.swift in Sources */,
 				1123909B25CC231600BED5C4 /* System.swift in Sources */,
 				1150326E25CE183700E07338 /* FolderCellViewModel.swift in Sources */,
+				110841B425D32AD6009A3A5B /* ImageCellViewModel.swift in Sources */,
 				1150325825CE0D2C00E07338 /* Folder.swift in Sources */,
 				1150326425CE172500E07338 /* FolderListView.swift in Sources */,
 				1123909625CC22FE00BED5C4 /* Feedback.swift in Sources */,
@@ -418,6 +427,7 @@
 				1123908A25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */,
 				1150323125CD643300E07338 /* UserViewModel.swift in Sources */,
 				1150322C25CD640A00E07338 /* UserView.swift in Sources */,
+				110841B925D33654009A3A5B /* CaptureImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +449,7 @@
 				1150323725CD6E7D00E07338 /* User.swift in Sources */,
 				1123909025CC1F9A00BED5C4 /* MainViewModel.swift in Sources */,
 				1150326F25CE183700E07338 /* FolderCellViewModel.swift in Sources */,
+				110841B525D32AD6009A3A5B /* ImageCellViewModel.swift in Sources */,
 				1150325925CE0D2C00E07338 /* Folder.swift in Sources */,
 				1150326525CE172500E07338 /* FolderListView.swift in Sources */,
 				1150322D25CD640A00E07338 /* UserView.swift in Sources */,
@@ -450,6 +461,7 @@
 				1150324125CD971D00E07338 /* RegistrationViewModel.swift in Sources */,
 				1123908B25CC1F7D00BED5C4 /* AuthorizationView.swift in Sources */,
 				1113797125BCA74200E371A6 /* MyToDoApp.swift in Sources */,
+				110841BA25D33654009A3A5B /* CaptureImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

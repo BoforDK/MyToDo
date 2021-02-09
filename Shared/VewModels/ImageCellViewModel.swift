@@ -1,26 +1,24 @@
 //
-//  UserViewModel.swift
+//  ImageCellViewModel.swift
 //  MyToDo
 //
-//  Created by Alexander on 2/5/21.
+//  Created by Alexander on 2/9/21.
 //
 
 import Foundation
 import Combine
 import SwiftUI
 
-class UserViewModel: ObservableObject {
-    var logout: () -> Void
-    var sourceType: UIImagePickerController.SourceType = .photoLibrary
-    @Published var image: UIImage?
+class ImageCellViewModel: ObservableObject {
+    @Published var image: UIImage
     @Published var storage: FBStorage
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(logout: @escaping () -> Void, image: UIImage = UIImage(), storage: FBStorage) {
-        self.logout = logout
+    init(image: UIImage = UIImage(), storage: FBStorage) {
         self.image = image
         self.storage = storage
+
     }
     
     func updateImage() {
@@ -51,4 +49,5 @@ class UserViewModel: ObservableObject {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
+    
 }
