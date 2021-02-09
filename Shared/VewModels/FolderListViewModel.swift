@@ -7,18 +7,23 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class FolderListViewModel: ObservableObject {
     @Published var folderRepository = FolderRepository()
     @Published var folderCellViewModels = [FolderCellViewModel]()
+    
+    @Published var image: UIImage?
+    @Published var storage: FBStorage
     
     var logout: () -> Void
     
     private var cancellables = Set<AnyCancellable>()
     
     
-    init(logout: @escaping () -> Void) {
+    init(storage: FBStorage, logout: @escaping () -> Void) {
         self.logout = logout
+        self.storage = storage
         folderRepository.$folders.map { folder in
             folder
                 .map { folder in
@@ -47,5 +52,20 @@ class FolderListViewModel: ObservableObject {
     
     func addFolder(folder: Folder) {
         folderRepository.addFolder(folder)
+    }
+    
+    func updateImage() {
+        self.storage.downloadImage()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("ImageCellViewModel: \(error)")
+                default:
+                    return
+                }
+            }, receiveValue: { output in
+                self.image = output
+            })
+            .store(in: &cancellables)
     }
 }

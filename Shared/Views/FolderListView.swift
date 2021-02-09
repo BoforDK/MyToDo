@@ -24,12 +24,19 @@ struct FolderListView: View {
             
             addFolderButton
             
-            NavigationLink(destination: UserView(viewModel: UserViewModel(logout: { viewModel.logout() }, storage: FBStorage(uid: UserRepository().user.uid))), isActive: $showUserView) {
+            NavigationLink(destination: UserView(viewModel: UserViewModel(logout: { viewModel.logout() }, storage: viewModel.storage)), isActive: $showUserView) {
                 EmptyView()
             }
         }
         .navigationTitle("Folders")
-        .navigationBarItems(trailing: Button(action: {self.showUserView.toggle()}, label: {Image(systemName: "person.circle")}))
+        .navigationBarItems(trailing: Button(action: {self.showUserView.toggle()}, label: {
+                Image(uiImage: (viewModel.image ?? UIImage(systemName: "person.circle"))!)
+                    .resizable()
+                    .frame(width: 32.0, height: 32.0)
+        }))
+        .onAppear {
+            viewModel.updateImage()
+        }
     }
     
     var pinnedFolders: some View{
@@ -82,7 +89,7 @@ struct FolderListView: View {
 
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderListView(viewModel: FolderListViewModel(){})
+        FolderListView(viewModel: FolderListViewModel(storage: FBStorage(uid: "")){})
     }
 }
 

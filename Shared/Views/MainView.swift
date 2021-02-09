@@ -20,10 +20,12 @@ struct MainView: View {
         case .checking:
             ProgressView("Loading...")
         case .successful:
-            FolderListView(viewModel: FolderListViewModel(logout: {
-                viewModel.cancelAutoAuth()
-                viewModel.send(event: .onLogout)
-            }))
+            FolderListView(viewModel: FolderListViewModel(
+                storage: FBStorage(uid: UserRepository().user.uid),
+                logout: {
+                    viewModel.cancelAutoAuth()
+                    viewModel.send(event: .onLogout)
+                    }))
         case .error:
             AuthorizationView(viewModel: AuthorizationViewModel(sendLoginEvent: { email, password in
                 viewModel.send(event: .onAccountEntry(email, password))
