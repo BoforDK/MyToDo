@@ -12,6 +12,8 @@ class TaskListViewModel: ObservableObject {
     @Published var taskRepository = TaskRepository()
     @Published var taskCellViewModels = [TaskCellViewModel]()
     
+    var taskDetails: TaskCellViewModel?
+    
     private var cancellables = Set<AnyCancellable>()
     
     var currentFolder: Folder
@@ -43,6 +45,13 @@ class TaskListViewModel: ObservableObject {
     
     func addTask(task: Task) {
         taskRepository.addTask(task)
+    }
+    
+    func deleteTask(at offsets: IndexSet, tasks: [TaskCellViewModel]) {
+        offsets.forEach { index in
+            let task = tasks[index]
+            task.delete()
+        }
     }
 }
 

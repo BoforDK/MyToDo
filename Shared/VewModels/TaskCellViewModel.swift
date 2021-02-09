@@ -35,4 +35,8 @@ class TaskCellViewModel: ObservableObject, Identifiable {
             }
             .store(in: &cancellables)
     }
+    
+    func delete() {
+        taskRepository.deleteTask(task)
+    }
 }

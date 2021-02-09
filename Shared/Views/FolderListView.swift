@@ -73,6 +73,9 @@ struct FolderListView: View {
                     FolderCell(folderCellVM: folderCellVM)
                 })
             }
+            .onDelete(perform: {offsets in
+                viewModel.deleteFolders(at: offsets, folders: viewModel.folderCellViewModels)
+            })
             if (presentAddNewItem) {
                 NewFolderCell(folderCellVM: FolderCellViewModel(folder: Folder(title: ""))) { folder in
                     self.viewModel.addFolder(folder: folder)

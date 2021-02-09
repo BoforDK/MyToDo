@@ -19,11 +19,17 @@ struct TaskListView: View {
                 ForEach(viewModel.taskCellViewModels) { taskCellVM in
                     TaskCell(taskCellVM: taskCellVM)
                 }
+                .onDelete(perform: {offsets in
+                    viewModel.deleteTask(at: offsets, tasks: viewModel.taskCellViewModels)
+                })
                 if (presentAddNewItem) {
-                    TaskCell(taskCellVM: TaskCellViewModel(task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id))) { task in
-                        self.viewModel.addTask(task: task)
-                        self.presentAddNewItem.toggle()
-                    }
+                    TaskCell(
+                        taskCellVM: TaskCellViewModel(task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id)),
+                        onCommit: { task in
+                                self.viewModel.addTask(task: task)
+                                self.presentAddNewItem.toggle()
+                            }
+                    )
                 }
             }
             Button(action: {
@@ -77,23 +83,7 @@ struct TaskCell: View {
             }
             if let plannedDay = taskCellVM.task.plannedDay {
                 Text(plannedDay.dateValue().description)
-            } else {
-                DatePickerView()
             }
         }
-    }
-}
-
-struct DatePickerView: View {
-    @State var date: Date = Date()
-
-    var body: some View {
-        DatePicker(
-            "Start Date",
-            selection: $date,
-            in: Date()...,
-            displayedComponents: [.date]
-        )
-//        .datePickerStyle(GraphicalDatePickerStyle())
     }
 }

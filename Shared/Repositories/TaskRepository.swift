@@ -61,4 +61,14 @@ class TaskRepository: ObservableObject {
             }
         }
     }
+    
+    func deleteTask(_ task: Task) {
+        db.collection("tasks").document(task.id!).delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
 }

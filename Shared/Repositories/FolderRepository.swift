@@ -62,4 +62,14 @@ class FolderRepository: ObservableObject {
             }
         }
     }
+    
+    func deleteFolder(_ folder: Folder) {
+        db.collection("folders").document(folder.id!).delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
 }

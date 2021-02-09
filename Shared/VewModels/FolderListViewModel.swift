@@ -54,6 +54,13 @@ class FolderListViewModel: ObservableObject {
         folderRepository.addFolder(folder)
     }
     
+    func deleteFolders(at offsets: IndexSet, folders: [FolderCellViewModel]) {
+        offsets.forEach { index in
+            let folder = folders[index]
+            folder.delete()
+        }
+    }
+    
     func updateImage() {
         self.storage.downloadImage()
             .sink(receiveCompletion: { completion in

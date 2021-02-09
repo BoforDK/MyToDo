@@ -34,4 +34,8 @@ class FolderCellViewModel: ObservableObject, Identifiable {
             }
             .store(in: &cancellables)
     }
+    
+    func delete() {
+        folderRepository.deleteFolder(folder)
+    }
 }
