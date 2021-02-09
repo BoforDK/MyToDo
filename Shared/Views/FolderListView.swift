@@ -30,16 +30,26 @@ struct FolderListView: View {
         }
         .navigationTitle("Folders")
         .navigationBarItems(trailing: Button(action: {self.showUserView.toggle()}, label: {
-                Image(uiImage: (viewModel.image ?? UIImage(systemName: "person.circle"))!)
-                    .resizable()
-                    .frame(width: 32.0, height: 32.0)
+            userButton
         }))
         .onAppear {
             viewModel.updateImage()
         }
     }
     
-    var pinnedFolders: some View{
+    var userButton: some View {
+        if let image = viewModel.image {
+            return Image(uiImage: image)
+                .resizable()
+                .frame(width: 30.0, height: 30.0)
+        } else {
+            return  Image(systemName: "person.circle")
+                .resizable()
+                .frame(width: 30.0, height: 30.0)
+        }
+    }
+    
+    var pinnedFolders: some View {
         Section(header: Text("Pinned folders")) {
             NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .Important)), label: {
                 Text(PinnedFolder.Important.rawValue)
