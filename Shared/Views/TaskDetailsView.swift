@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-//import MapKit
+import MapKit
 
 struct TaskDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -18,24 +18,30 @@ struct TaskDetailsView: View {
     
     var body: some View {
         NavigationView {
-        List {
+            List {
                 DatePicker(
-                    "Start Date",
+                    "Set date",
                     selection: $date,
                     in: Date()...,
                     displayedComponents: [.date]
                 )
-                .datePickerStyle(GraphicalDatePickerStyle())
                 Button("Save date") {
                     taskCellVM.task.plannedDay = Timestamp(date: date)
                     self.presentationMode.wrappedValue.dismiss()
                 }
+                .foregroundColor(.blue)
                 Button("Delete date") {
                     taskCellVM.task.plannedDay = nil
                     self.presentationMode.wrappedValue.dismiss()
                 }
-            NavigationLink(destination: LocationView(viewModel: LocationViewModel(taskCellVM: taskCellVM)), label: { Text("Location") })
+                .foregroundColor(.blue)
+                if taskCellVM.task.location != nil {
+                    LocationView(viewModel: LocationViewModel(taskCellVM: taskCellVM, visible: false))
+                        .frame(height: 200)
+                }
+                NavigationLink(destination: LocationView(viewModel: LocationViewModel(taskCellVM: taskCellVM, visible: true)), label: { Text("Location") })
             }
+            .navigationBarTitle(taskCellVM.task.title)
         }
     }
 }

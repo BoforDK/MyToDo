@@ -75,7 +75,7 @@ struct TaskCell: View {
     @State var isPresented = false
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Image(systemName: taskCellVM.task.completed ? "checkmark.circle.fill" : "circle")
                     .resizable()
@@ -88,17 +88,22 @@ struct TaskCell: View {
                 })
                 Image(systemName: taskCellVM.task.isImportant ? "star.fill" : "star")
                     .resizable()
-                    .frame(width: 10, height: 10)
+                    .frame(width: 20, height: 20)
                     .onTapGesture {
                         self.taskCellVM.task.isImportant.toggle()
                     }
+                Image(systemName: "pencil.tip")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .onTapGesture {
+                        isShowDetails(taskCellVM)
+                    }
             }
-            if let plannedDay = taskCellVM.task.plannedDay {
-                Text(plannedDay.dateValue().description)
+            if taskCellVM.task.plannedDay != nil {
+                Text(taskCellVM.onlyDate())
             }
         }
-        .onLongPressGesture(minimumDuration: 0.5) {
-                            isShowDetails(taskCellVM)
-                        }
     }
 }
+
+

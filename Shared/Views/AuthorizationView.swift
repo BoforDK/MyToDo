@@ -13,7 +13,7 @@ struct AuthorizationView: View {
     @State var errorAuth = false
 
     let lightGreyColor = Color(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, opacity: 0.6)
-    var accentColor: Color = Color(red: 125/255, green: 63/255, blue: 98/255)
+    var accentColor: Color = .blue
 
     var body: some View {
         ZStack {
@@ -114,19 +114,12 @@ struct AuthorizationView: View {
                 .foregroundColor(Color.white)
                 .padding()
                 .frame(width: 220, height: 60)
-//                .background(Color.green)
                 .background(accentColor)
                 .cornerRadius(15.0)
         }
     }
     
     var createNewAccount: some View {
-//        NavigationView {
-//            NavigationLink(destination: RegistrationView(viewModel: RegistrationViewModel()), label: {
-//                Text("Create new account")
-//                    .font(.headline)
-//            })
-//        }
         Button(action: {
             isPresented.toggle()
         }) {

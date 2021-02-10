@@ -14,66 +14,75 @@ struct UserView: View {
     
     var body: some View {
         ScrollView {
-            Section {
-                Image(uiImage: viewModel.image ?? UIImage())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .edgesIgnoringSafeArea(.all)
-                
-                Button(action: {
-                            self.viewModel.sourceType = .photoLibrary
-                            self.isShowPhotoLibrary = true
-                        }) {
-                            HStack {
-                                Image(systemName: "photo")
-                                    .font(.system(size: 20))
-             
-                                Text("Photo library")
-                                    .font(.headline)
-                            }
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                            .padding(.horizontal)
-                        }
-                Button(action: {
-                    self.viewModel.sourceType = .camera
-                        self.isShowPhotoLibrary = true
-                        }) {
-                            HStack {
-                                Image(systemName: "photo")
-                                    .font(.system(size: 20))
-             
-                                Text("Camera")
-                                    .font(.headline)
-                            }
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                            .padding(.horizontal)
-                        }
-                Button("Logout", action: {
-                    viewModel.logout()
-                })
-                
-                Text("User image")
-                Text("Email")
-                Text("Setting")
-                Text("Change password")
-                Text("Change password")
-                
+            Image(uiImage: viewModel.image ?? UIImage())
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .clipShape(Circle())
+                .frame(width: 200.0, height: 200.0, alignment: .center)
+                .edgesIgnoringSafeArea(.all)
+            
+            HStack {
+                cameraButton
+                Spacer()
+                libraryButton
             }
-            .sheet(isPresented: $isShowPhotoLibrary) {
-                CaptureImageView(isShown: $isShowPhotoLibrary, image: self.$viewModel.image, sourceType: viewModel.sourceType) { image in
-                    viewModel.uploadImage(image)
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(20)
+            .padding(.horizontal)
+            
+            logout
+            
+        }
+        .navigationBarTitle("User")
+        .sheet(isPresented: $isShowPhotoLibrary) {
+            CaptureImageView(isShown: $isShowPhotoLibrary, image: self.$viewModel.image, sourceType: viewModel.sourceType) { image in
+                viewModel.uploadImage(image)
+            }
+        }
+        .onAppear {
+            viewModel.updateImage()
+        }
+    }
+    
+    var libraryButton: some View {
+        Button(action: {
+                    self.viewModel.sourceType = .photoLibrary
+                    self.isShowPhotoLibrary = true
+                }) {
+                    HStack {
+                        Text("Library")
+                            .font(.headline)
+                        
+                        Image(systemName: "photo")
+                            .font(.system(size: 20))
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 60)
                 }
-            }
-            .onAppear {
-                viewModel.updateImage()
-            }
+    }
+    
+    var cameraButton: some View {
+        Button(action: {
+            self.viewModel.sourceType = .camera
+                self.isShowPhotoLibrary = true
+                }) {
+                    HStack {
+                        Image(systemName: "camera")
+                            .font(.system(size: 20))
+     
+                        Text("Camera")
+                            .font(.headline)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 60)
+                }
+    }
+    
+    var logout: some View {
+        Button(action: {
+            viewModel.logout()
+        }) {
+            Text("Logout")
+                .foregroundColor(.blue)                
         }
     }
 }

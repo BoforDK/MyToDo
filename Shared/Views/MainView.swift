@@ -27,7 +27,7 @@ struct MainView: View {
                     viewModel.send(event: .onLogout)
                     }))
         case .error:
-            AuthorizationView(viewModel: AuthorizationViewModel(sendLoginEvent: { email, password in
+            AuthorizationView(viewModel: AuthorizationViewModel(error: true, sendLoginEvent: { email, password in
                 viewModel.send(event: .onAccountEntry(email, password))
             }))
         }

@@ -17,10 +17,10 @@ class AuthorizationViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(sendLoginEvent: @escaping (String, String) -> Void) {
+    init(error: Bool = false, sendLoginEvent: @escaping (String, String) -> Void) {
         self.sendLoginEvent = sendLoginEvent
         user = UserRepository().user
-        if user.autoLogin {
+        if user.autoLogin && !error {
             self.sendLoginEvent(user.email, user.password)
         }
         

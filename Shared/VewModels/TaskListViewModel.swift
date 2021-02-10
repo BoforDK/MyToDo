@@ -54,30 +54,3 @@ class TaskListViewModel: ObservableObject {
         }
     }
 }
-
-enum PinnedFolder: String {
-    case Important = "Important"
-    case Today = "Today"
-    case Undelivered = "Undelivered"
-    case AllToDos = "All ToDos"
-    
-    var getFilter: ((Task) -> Bool) {
-        switch self {
-        case .Important:
-            return { task in task.isImportant }
-        case .Undelivered:
-            return { task in !task.completed }
-        case .Today:
-            return { task in
-                guard let taskDate = task.plannedDay?.dateValue() else {
-                    return false
-                }
-                let day = Calendar.current.component(.day, from: taskDate)
-                let today = Calendar.current.component(.day, from: Date())
-                return day == today
-            }
-        case .AllToDos:
-            return { _ in true }
-        }
-    }
-}

@@ -39,4 +39,12 @@ class TaskCellViewModel: ObservableObject, Identifiable {
     func delete() {
         taskRepository.deleteTask(task)
     }
+    
+    func onlyDate() -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .short
+        formatter.timeZone = TimeZone.current
+        return formatter.string(from: task.plannedDay?.dateValue() ?? Date())
+    }
 }

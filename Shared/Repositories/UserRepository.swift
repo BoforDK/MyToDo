@@ -11,12 +11,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class UserRepository: ObservableObject {
-    private var email: String = UserDefaults.standard.string(forKey: "email") ?? "" {
+    private var email: String = UserDefaults.standard.string(forKey: "email") ?? "test@gmail.com" {
         didSet {
             UserDefaults.standard.setValue(email, forKey: "email")
         }
     }
-    private var password: String = UserDefaults.standard.string(forKey: "password") ?? "" {
+    private var password: String = UserDefaults.standard.string(forKey: "password") ?? "123456" {
         didSet {
             UserDefaults.standard.setValue(password, forKey: "password")
         }
@@ -32,7 +32,7 @@ class UserRepository: ObservableObject {
         }
     }
     
-    private var uid = Auth.auth().currentUser!.uid
+    private var uid = Auth.auth().currentUser?.uid ?? ""
     
     var user: User {
         User(email: email,

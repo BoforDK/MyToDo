@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class RegistrationViewModel: ObservableObject {
-    @Published var email: String = "Test3@gmail.com"
+    @Published var email: String = "Test2@gmail.com"
     @Published var password: String = "12345"
     
     @Published var errorMessage = ""
