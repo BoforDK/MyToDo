@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
+    
     @ObservedObject var viewModel: TaskListViewModel
     
     @State var presentAddNewItem = false

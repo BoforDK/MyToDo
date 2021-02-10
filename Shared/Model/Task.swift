@@ -19,5 +19,6 @@ struct Task: Codable, Identifiable {
     var plannedDay: Timestamp?
     var userId: String?
     var folderId: String?
+    var location: GeoPoint?
 }
 
