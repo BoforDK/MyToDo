@@ -15,18 +15,14 @@ struct LocationView: View {
     var body: some View {
         VStack {
             ZStack {
-                Map(coordinateRegion: $viewModel.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $viewModel.userTrackingMode, annotationItems: viewModel.annotations) {
-//                    MapPin(coordinate: $0.coordinate)
-//                    MapMarker(coordinate: $0.coordinate)
+                Map(
+                    coordinateRegion: $viewModel.region,
+                    interactionModes: .all,
+                    showsUserLocation: true,
+                    userTrackingMode: $viewModel.userTrackingMode,
+                    annotationItems: viewModel.annotations
+                ) {
                     MapMarker(coordinate: $0.coordinate, tint: .green)
-//                    MapAnnotation(coordinate: $0.coordinate) {
-//                        ZStack {
-//                            Circle()
-//                                .strokeBorder(Color.red, lineWidth: 4)
-//                                .frame(width: 40, height: 40)
-//                            Text("1")
-//                        }
-//                    }
                 }
                 if viewModel.visible {
                     Circle()
@@ -35,15 +31,15 @@ struct LocationView: View {
                 }
             }
             if viewModel.visible {
-            HStack {
-                Button("Add marker") {
-                    viewModel.addLocation()
+                HStack {
+                    Button("Add marker") {
+                        viewModel.addLocation()
+                    }
+                    Spacer()
+                    Button("Delete marker") {
+                        viewModel.deleteLocation()
+                    }
                 }
-                Spacer()
-                Button("Delete marker") {
-                    viewModel.deleteLocation()
-                }
-            }
             }
         }
         .navigationTitle("Location")

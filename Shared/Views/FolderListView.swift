@@ -22,7 +22,11 @@ struct FolderListView: View {
                 myFolders
             }
 
-            NavigationLink(destination: UserView(viewModel: UserViewModel(logout: { viewModel.logout() }, storage: viewModel.storage)), isActive: $showUserView) {
+            NavigationLink(
+                destination: UserView(
+                viewModel: UserViewModel(logout: { viewModel.logout() }, storage: viewModel.storage)),
+                isActive: $showUserView
+            ) {
                 EmptyView()
             }
         }
@@ -95,7 +99,9 @@ struct FolderListView: View {
     var myFolders: some View {
         Section(header: Text("Your folders")) {
             ForEach(viewModel.folderCellViewModels) { folderCellVM in
-                NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(currentFolder: folderCellVM.folder)), label: {
+                NavigationLink(
+                    destination: TaskListView(viewModel: TaskListViewModel(currentFolder: folderCellVM.folder)),
+                    label: {
                     FolderCell(folderCellVM: folderCellVM)
                 })
             }

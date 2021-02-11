@@ -26,7 +26,6 @@ class TaskCellViewModel: ObservableObject, Identifiable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
 
-        // TODO
         $task
             .dropFirst()
             .debounce(for: 0.8, scheduler: RunLoop.main)

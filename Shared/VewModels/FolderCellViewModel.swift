@@ -25,7 +25,6 @@ class FolderCellViewModel: ObservableObject, Identifiable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
 
-        // TODO
         $folder
             .dropFirst()
             .debounce(for: 0.8, scheduler: RunLoop.main)
