@@ -31,9 +31,9 @@ class UserRepository: ObservableObject {
             UserDefaults.standard.setValue(autoLogin, forKey: "autoLogin")
         }
     }
-    
+
     private var uid = Auth.auth().currentUser?.uid ?? ""
-    
+
     var user: User {
         User(email: email,
              password: password,
@@ -41,12 +41,11 @@ class UserRepository: ObservableObject {
              autoLogin: autoLogin,
              uid: uid)
     }
-    
-    
+
     init() {
-        
+
     }
-    
+
     func updateUser(_ newUser: User) {
         self.email = newUser.email
         self.password = newUser.password

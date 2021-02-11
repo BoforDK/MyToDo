@@ -10,7 +10,7 @@ import Firebase
 import Combine
 
 class AuthenticationWithEmailAndPassword {
-    
+
     func signIn(email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
         return Future<AuthDataResult, Error> { promise in
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
@@ -25,7 +25,7 @@ class AuthenticationWithEmailAndPassword {
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func createUser(email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
         return Future<AuthDataResult, Error> { promise in
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in

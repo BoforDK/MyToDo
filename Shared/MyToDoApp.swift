@@ -10,11 +10,10 @@ import Firebase
 
 @main
 struct MyToDoApp: App {
-    
     init() {
         FirebaseApp.configure()
     }
-    
+
     var body: some Scene {
         WindowGroup {
             MainView()

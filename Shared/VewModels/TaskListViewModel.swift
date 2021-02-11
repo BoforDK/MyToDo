@@ -11,13 +11,13 @@ import Combine
 class TaskListViewModel: ObservableObject {
     @Published var taskRepository = TaskRepository()
     @Published var taskCellViewModels = [TaskCellViewModel]()
-    
+
     var taskDetails: TaskCellViewModel?
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     var currentFolder: Folder
-    
+
     init(currentFolder: Folder) {
         self.currentFolder = currentFolder
         taskRepository.$tasks
@@ -29,7 +29,7 @@ class TaskListViewModel: ObservableObject {
             .assign(to: \.taskCellViewModels, on: self)
             .store(in: &cancellables)
     }
-    
+
     init(pinnedFolderType: PinnedFolder) {
         self.currentFolder = Folder(title: pinnedFolderType.rawValue)
         let filter = pinnedFolderType.getFilter
@@ -42,11 +42,11 @@ class TaskListViewModel: ObservableObject {
             .assign(to: \.taskCellViewModels, on: self)
             .store(in: &cancellables)
     }
-    
+
     func addTask(task: Task) {
         taskRepository.addTask(task)
     }
-    
+
     func deleteTask(at offsets: IndexSet, tasks: [TaskCellViewModel]) {
         offsets.forEach { index in
             let task = tasks[index]

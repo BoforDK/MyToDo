@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TaskListView: View {
-    
+
     @ObservedObject var viewModel: TaskListViewModel
-    
+
     @State var presentAddNewItem = false
     @State var showSignInForm = false
-    
+
     @State var isShowDetails = false
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             List {
@@ -28,9 +28,11 @@ struct TaskListView: View {
                 .onDelete(perform: {offsets in
                     viewModel.deleteTask(at: offsets, tasks: viewModel.taskCellViewModels)
                 })
-                if (presentAddNewItem) {
+                if presentAddNewItem {
                     TaskCell(
-                        taskCellVM: TaskCellViewModel(task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id)),
+                        taskCellVM: TaskCellViewModel(
+                            task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id)
+                        ),
                         onCommit: { task in
                                 self.viewModel.addTask(task: task)
                                 self.presentAddNewItem.toggle()
@@ -41,8 +43,8 @@ struct TaskListView: View {
             }
             Button(action: {
                 self.presentAddNewItem.toggle()
-            }){
-                HStack{
+            }) {
+                HStack {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -64,16 +66,15 @@ struct ContentView_Previews: PreviewProvider {
   }
 }
 
-
 struct TaskCell: View {
     @ObservedObject var taskCellVM: TaskCellViewModel
-    
+
     var onCommit: (Task) -> Void = { _ in }
-    
+
     var isShowDetails: (TaskCellViewModel) -> Void
-    
+
     @State var isPresented = false
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -105,5 +106,3 @@ struct TaskCell: View {
         }
     }
 }
-
-

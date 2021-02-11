@@ -62,15 +62,6 @@ struct LocationView: View {
     }
 }
 
-struct MyMarker: MapAnnotationProtocol {
-    var _annotationData: _MapAnnotationData
-    
-    var body: some View {
-        Text("1")
-    }
-    
-}
-
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         LocationView(viewModel: LocationViewModel(taskCellVM: TaskCellViewModel(task: Task()), visible: true))

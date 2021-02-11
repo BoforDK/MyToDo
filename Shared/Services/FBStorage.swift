@@ -14,21 +14,21 @@ import FirebaseStorageSwift
 
 class FBStorage {
     var uid: String
-    
+
     let storage: Storage
-    
+
     init(uid: String, storage: Storage = Storage.storage() ) {
         self.uid = uid
         self.storage = storage
     }
-    
+
     func uploadImage(img: UIImage) -> AnyPublisher<String, Error> {
         return Future<String, Error> { [weak self] promise in
             guard let self = self else {
                 fatalError("upload image error")
             }
             if let imageData = img.jpegData(compressionQuality: CGFloat(0.1)) {
-                self.storage.reference().child(self.uid).putData(imageData, metadata: nil) { data, error in
+                self.storage.reference().child(self.uid).putData(imageData, metadata: nil) { _, error in
                     if let error = error {
                         return promise(.failure(error))
                     } else {
@@ -36,11 +36,11 @@ class FBStorage {
                     }
                 }
             } else {
-                return promise(.failure("unwrap/case image to data" as! Error))
+                return promise(.failure(StorageError.invalidUpload("unwrap/case image to data")))
             }
         }.eraseToAnyPublisher()
     }
-    
+
     func downloadImage() -> AnyPublisher<UIImage, Error> {
         return Future<UIImage, Error> { [weak self] promise in
             guard let self = self else {
@@ -51,14 +51,19 @@ class FBStorage {
                     return promise(.failure(error))
                 } else {
                     guard let data = data else {
-                        return promise(.failure("wrong data format" as! Error))
+                        return promise(.failure(StorageError.invalidDownloadFormat))
                     }
                     guard let img = UIImage(data: data) else {
-                        return promise(.failure("wrong data format" as! Error))
+                        return promise(.failure(StorageError.invalidDownloadFormat))
                     }
                     return promise(.success(img))
                 }
             }
         }.eraseToAnyPublisher()
     }
+}
+
+enum StorageError: Error {
+    case invalidUpload(String)
+    case invalidDownloadFormat
 }

@@ -12,15 +12,14 @@ import SwiftUI
 class FolderListViewModel: ObservableObject {
     @Published var folderRepository = FolderRepository()
     @Published var folderCellViewModels = [FolderCellViewModel]()
-    
+
     @Published var image: UIImage?
     @Published var storage: FBStorage
-    
+
     var logout: () -> Void
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
-    
+
     init(storage: FBStorage, logout: @escaping () -> Void) {
         self.logout = logout
         self.storage = storage
@@ -33,7 +32,7 @@ class FolderListViewModel: ObservableObject {
         .assign(to: \.folderCellViewModels, on: self)
         .store(in: &cancellables)
     }
-    
+
     private func findFolder(name: String) -> FolderCellViewModel {
         guard let result = folderCellViewModels.first(where: { folderCellVM in
             folderCellVM.folder.title == name
@@ -42,25 +41,25 @@ class FolderListViewModel: ObservableObject {
             addFolder(folder: newFolder)
             return FolderCellViewModel(folder: newFolder)
         }
-        
+
         folderCellViewModels = folderCellViewModels.filter { folderCellVM in
             folderCellVM.folder.title != name
         }
-        
+
         return result
     }
-    
+
     func addFolder(folder: Folder) {
         folderRepository.addFolder(folder)
     }
-    
+
     func deleteFolders(at offsets: IndexSet, folders: [FolderCellViewModel]) {
         offsets.forEach { index in
             let folder = folders[index]
             folder.delete()
         }
     }
-    
+
     func updateImage() {
         self.storage.downloadImage()
             .sink(receiveCompletion: { completion in
@@ -77,20 +76,19 @@ class FolderListViewModel: ObservableObject {
     }
 }
 
-
 enum PinnedFolder: String {
-    case Important = "Important"
-    case Today = "Today"
-    case Undelivered = "Undelivered"
-    case AllToDos = "All ToDos"
-    
+    case important = "Important"
+    case today = "Today"
+    case undelivered = "Undelivered"
+    case allToDos = "All ToDos"
+
     var getFilter: ((Task) -> Bool) {
         switch self {
-        case .Important:
+        case .important:
             return { task in task.isImportant }
-        case .Undelivered:
+        case .undelivered:
             return { task in !task.completed }
-        case .Today:
+        case .today:
             return { task in
                 guard let taskDate = task.plannedDay?.dateValue() else {
                     return false
@@ -99,7 +97,7 @@ enum PinnedFolder: String {
                 let today = Calendar.current.component(.day, from: Date())
                 return day == today
             }
-        case .AllToDos:
+        case .allToDos:
             return { _ in true }
         }
     }

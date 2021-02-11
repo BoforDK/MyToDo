@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
 struct Task: Codable, Identifiable {
     @DocumentID var id: String?
     var title: String = ""
@@ -19,6 +18,5 @@ struct Task: Codable, Identifiable {
     var plannedDay: Timestamp?
     var userId: String?
     var folderId: String?
-    var location: GeoPoint? = nil
+    var location: GeoPoint?
 }
-

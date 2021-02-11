@@ -12,15 +12,15 @@ import SwiftUI
 class ImageCellViewModel: ObservableObject {
     @Published var image: UIImage
     @Published var storage: FBStorage
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(image: UIImage = UIImage(), storage: FBStorage) {
         self.image = image
         self.storage = storage
 
     }
-    
+
     func updateImage() {
         self.storage.downloadImage()
             .sink(receiveCompletion: { completion in
@@ -35,7 +35,7 @@ class ImageCellViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+
     func uploadImage(_ newImage: UIImage) {
         storage.uploadImage(img: newImage)
             .sink(receiveCompletion: { completion in
@@ -49,5 +49,5 @@ class ImageCellViewModel: ObservableObject {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
-    
+
 }

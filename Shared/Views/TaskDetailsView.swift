@@ -11,11 +11,11 @@ import MapKit
 
 struct TaskDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
-    
+
     var taskCellVM: TaskCellViewModel
-    
+
     @State var date: Date = Date()
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -39,7 +39,10 @@ struct TaskDetailsView: View {
                     LocationView(viewModel: LocationViewModel(taskCellVM: taskCellVM, visible: false))
                         .frame(height: 200)
                 }
-                NavigationLink(destination: LocationView(viewModel: LocationViewModel(taskCellVM: taskCellVM, visible: true)), label: { Text("Location") })
+                NavigationLink(destination: LocationView(
+                                viewModel: LocationViewModel(taskCellVM: taskCellVM, visible: true)),
+                               label: { Text("Location") }
+                )
             }
             .navigationBarTitle(taskCellVM.task.title)
         }

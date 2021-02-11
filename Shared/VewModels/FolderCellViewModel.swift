@@ -12,9 +12,9 @@ class FolderCellViewModel: ObservableObject, Identifiable {
     @Published var folder: Folder
     var id: String = ""
     @Published var folderRepository = FolderRepository()
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(folder: Folder) {
         self.folder = folder
 
@@ -25,7 +25,7 @@ class FolderCellViewModel: ObservableObject, Identifiable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
 
-        //TODO
+        // TODO
         $folder
             .dropFirst()
             .debounce(for: 0.8, scheduler: RunLoop.main)
@@ -34,7 +34,7 @@ class FolderCellViewModel: ObservableObject, Identifiable {
             }
             .store(in: &cancellables)
     }
-    
+
     func delete() {
         folderRepository.deleteFolder(folder)
     }

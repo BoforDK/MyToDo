@@ -12,21 +12,21 @@ class TaskCellViewModel: ObservableObject, Identifiable {
     @Published var task: Task
     var id: String = ""
     @Published var taskRepository: TaskRepository
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(task: Task, taskRepository: TaskRepository = TaskRepository()) {
         self.task = task
         self.taskRepository = taskRepository
-        
+
         $task
             .compactMap { task in
                 task.id
             }
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
-        
-        //TODO
+
+        // TODO
         $task
             .dropFirst()
             .debounce(for: 0.8, scheduler: RunLoop.main)
@@ -35,11 +35,11 @@ class TaskCellViewModel: ObservableObject, Identifiable {
             }
             .store(in: &cancellables)
     }
-    
+
     func delete() {
         taskRepository.deleteTask(task)
     }
-    
+
     func onlyDate() -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .none

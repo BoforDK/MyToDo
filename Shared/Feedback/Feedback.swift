@@ -21,4 +21,3 @@ struct Feedback<State, Event> {
         }
     }
 }
-

@@ -12,13 +12,13 @@ import FirebaseFirestoreSwift
 
 class FolderRepository: ObservableObject {
     let db = Firestore.firestore()
-    
+
     @Published var folders = [Folder]()
-    
+
     init() {
         loadData()
     }
-    
+
     func loadData() {
         guard let userId = Auth.auth().currentUser?.uid else {
             fatalError("User does not exist")
@@ -28,11 +28,10 @@ class FolderRepository: ObservableObject {
             .whereField("userId", isEqualTo: userId)
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
-                self.folders = querySnapshot.documents.compactMap{ document in
+                self.folders = querySnapshot.documents.compactMap { document in
                     do {
-                        let x = try document.data(as: Folder.self)
-                        return x
-                    } catch let error{
+                        return try document.data(as: Folder.self)
+                    } catch let error {
                         print(error)
                     }
                     return nil
@@ -40,17 +39,17 @@ class FolderRepository: ObservableObject {
             }
         }
     }
-    
+
     func addFolder (_ folder: Folder) {
         do {
             var addedFolder = folder
             addedFolder.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("folders").addDocument(from: addedFolder)
+            _ = try db.collection("folders").addDocument(from: addedFolder)
         } catch {
             fatalError("Unable to encode folder: \(error.localizedDescription)")
         }
     }
-    
+
     func updateFolder(_ folder: Folder) {
         if let folderID = folder.id {
             do {
@@ -62,9 +61,9 @@ class FolderRepository: ObservableObject {
             }
         }
     }
-    
+
     func deleteFolder(_ folder: Folder) {
-        db.collection("folders").document(folder.id!).delete() { error in
+        db.collection("folders").document(folder.id!).delete { error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {

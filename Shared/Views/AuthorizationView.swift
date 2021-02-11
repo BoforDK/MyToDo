@@ -19,23 +19,23 @@ struct AuthorizationView: View {
         ZStack {
             VStack {
                 welcomeText
-                
+
                 userEmail
-                
+
                 userPassword
-                
-                if (errorAuth) {
+
+                if errorAuth {
                     Text("error auth")
                 }
-                
+
                 Toggle(isOn: $viewModel.user.autoLogin) {
                     Text("Auto authorization?")
                 }
                 .padding()
                 .foregroundColor(accentColor)
-                
+
                 loginBtn
-                
+
                 createNewAccount
             }
         }
@@ -78,7 +78,7 @@ struct AuthorizationView: View {
         .cornerRadius(5.0)
         .padding(.bottom, 20)
     }
-    
+
     var userPassword: some View {
         HStack {
             Image(systemName: "lock")
@@ -104,7 +104,7 @@ struct AuthorizationView: View {
         .cornerRadius(5.0)
         .padding(.bottom, 20)
     }
- 
+
     var loginBtn: some View {
         Button(action: {
             self.viewModel.sendLoginEvent(viewModel.user.email, viewModel.user.password)
@@ -118,7 +118,7 @@ struct AuthorizationView: View {
                 .cornerRadius(15.0)
         }
     }
-    
+
     var createNewAccount: some View {
         Button(action: {
             isPresented.toggle()
@@ -128,4 +128,3 @@ struct AuthorizationView: View {
         }
     }
 }
-

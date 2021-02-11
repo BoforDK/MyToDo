@@ -12,13 +12,13 @@ import FirebaseFirestoreSwift
 
 class TaskRepository: ObservableObject {
     let db = Firestore.firestore()
-    
+
     @Published var tasks = [Task]()
-    
+
     init() {
         loadData()
     }
-    
+
     func loadData() {
         guard let userId = Auth.auth().currentUser?.uid else {
             fatalError("User does not exist")
@@ -28,10 +28,10 @@ class TaskRepository: ObservableObject {
             .whereField("userId", isEqualTo: userId)
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
-                self.tasks = querySnapshot.documents.compactMap{ document in
+                self.tasks = querySnapshot.documents.compactMap { document in
                     do {
                         return try document.data(as: Task.self)
-                    } catch let error{
+                    } catch let error {
                         print(error)
                     }
                     return nil
@@ -39,17 +39,17 @@ class TaskRepository: ObservableObject {
             }
         }
     }
-    
+
     func addTask (_ task: Task) {
         do {
             var addedTask = task
             addedTask.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("tasks").addDocument(from: addedTask)
+            _ = try db.collection("tasks").addDocument(from: addedTask)
         } catch {
             fatalError("Unable to encode task: \(error.localizedDescription)")
         }
     }
-    
+
     func updateTask(_ task: Task) {
         if let taskID = task.id {
             do {
@@ -61,9 +61,9 @@ class TaskRepository: ObservableObject {
             }
         }
     }
-    
+
     func deleteTask(_ task: Task) {
-        db.collection("tasks").document(task.id!).delete() { error in
+        db.collection("tasks").document(task.id!).delete { error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {

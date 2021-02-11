@@ -14,15 +14,15 @@ class UserViewModel: ObservableObject {
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @Published var image: UIImage?
     @Published var storage: FBStorage
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(logout: @escaping () -> Void, image: UIImage = UIImage(), storage: FBStorage) {
         self.logout = logout
         self.image = image
         self.storage = storage
     }
-    
+
     func updateImage() {
         self.storage.downloadImage()
             .sink(receiveCompletion: { completion in
@@ -37,7 +37,7 @@ class UserViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+
     func uploadImage(_ newImage: UIImage) {
         storage.uploadImage(img: newImage)
             .sink(receiveCompletion: { completion in
