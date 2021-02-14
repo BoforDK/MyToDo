@@ -1,6 +1,6 @@
 //
 //  TaskListView.swift
-//  Shared
+//  MyToDo
 //
 //  Created by Alexander on 1/23/21.
 //
@@ -13,50 +13,56 @@ struct TaskListView: View {
 
     @State var presentAddNewItem = false
     @State var showSignInForm = false
-
-    @State var isShowDetails = false
+    @State var showDetails = false
 
     var body: some View {
         VStack(alignment: .leading) {
             List {
                 ForEach(viewModel.taskCellViewModels) { taskCellVM in
-                    TaskCell(taskCellVM: taskCellVM) { taskCellVM in
-                        isShowDetails = true
+                    TaskCell(taskCellVM: taskCellVM, showDetailsAction:  { taskCellVM in
+                        showDetails = true
                         self.viewModel.taskDetails = taskCellVM
-                    }
+                    })
                 }
                 .onDelete(perform: {offsets in
                     viewModel.deleteTask(at: offsets, tasks: viewModel.taskCellViewModels)
                 })
+
                 if presentAddNewItem {
-                    TaskCell(
-                        taskCellVM: TaskCellViewModel(
-                            task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id)
-                        ),
-                        onCommit: { task in
-                                self.viewModel.addTask(task: task)
-                                self.presentAddNewItem.toggle()
-                            },
-                        isShowDetails: { _ in }
-                    )
+                    creatingNewTask
                 }
             }
             Button(action: {
                 self.presentAddNewItem.toggle()
             }) {
-                HStack {
-                    Image(systemName: "plus.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text("Add new Task")
-                }
+                newTaskButton
             }
             .padding()
         }
         .navigationTitle(viewModel.currentFolder.title)
-        .sheet(isPresented: $isShowDetails) {
+        .sheet(isPresented: $showDetails) {
             TaskDetailsView(taskCellVM: viewModel.taskDetails ?? TaskCellViewModel(task: Task()))
         }
+    }
+
+    var newTaskButton: some View {
+        HStack {
+            Image(systemName: "plus.circle.fill")
+                .resizable()
+                .frame(width: 20, height: 20)
+            Text("Add new Task")
+        }
+    }
+    var creatingNewTask: some View {
+        TaskCell(
+            taskCellVM: TaskCellViewModel(
+                task: Task(title: "", completed: false, folderId: viewModel.currentFolder.id)
+            ),
+            onCommit: { task in
+                    self.viewModel.addTask(task: task)
+                    self.presentAddNewItem.toggle()
+                }
+        )
     }
 }
 
@@ -71,38 +77,51 @@ struct TaskCell: View {
 
     var onCommit: (Task) -> Void = { _ in }
 
-    var isShowDetails: (TaskCellViewModel) -> Void
-
-    @State var isPresented = false
+    var showDetailsAction: ((TaskCellViewModel) -> Void)?
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: taskCellVM.task.completed ? "checkmark.circle.fill" : "circle")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .onTapGesture {
-                        self.taskCellVM.task.completed.toggle()
-                    }
+                checkmarkImage
+
                 TextField("Enter the task title", text: $taskCellVM.task.title, onCommit: {
                     self.onCommit(self.taskCellVM.task)
                 })
-                Image(systemName: taskCellVM.task.isImportant ? "star.fill" : "star")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .onTapGesture {
-                        self.taskCellVM.task.isImportant.toggle()
-                    }
-                Image(systemName: "pencil.tip")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .onTapGesture {
-                        isShowDetails(taskCellVM)
-                    }
+
+                importantImage
+
+                editImage
             }
             if taskCellVM.task.plannedDay != nil {
                 Text(taskCellVM.onlyDate())
             }
         }
+    }
+
+    var checkmarkImage: some View {
+        Image(systemName: taskCellVM.task.completed ? "checkmark.circle.fill" : "circle")
+            .resizable()
+            .frame(width: 20, height: 20)
+            .onTapGesture {
+                self.taskCellVM.task.completed.toggle()
+            }
+    }
+
+    var importantImage: some View {
+        Image(systemName: taskCellVM.task.isImportant ? "star.fill" : "star")
+            .resizable()
+            .frame(width: 20, height: 20)
+            .onTapGesture {
+                self.taskCellVM.task.isImportant.toggle()
+            }
+    }
+
+    var editImage: some View {
+        Image(systemName: "pencil.tip")
+            .resizable()
+            .frame(width: 20, height: 20)
+            .onTapGesture {
+                showDetailsAction?(taskCellVM)
+            }
     }
 }
