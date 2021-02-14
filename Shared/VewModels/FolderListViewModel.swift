@@ -76,11 +76,26 @@ class FolderListViewModel: ObservableObject {
     }
 }
 
-enum PinnedFolder: String {
+enum PinnedFolder: String, Equatable, CaseIterable {
     case important = "Important"
     case today = "Today"
     case undelivered = "Undelivered"
     case allToDos = "All ToDos"
+    
+    var id: Self { self }
+
+    var getSystemImageName: String {
+        switch self {
+        case .important:
+            return "star"
+        case .today:
+            return "calendar"
+        case .undelivered:
+            return "circle"
+        case .allToDos:
+            return "archivebox"
+        }
+    }
 
     var getFilter: ((Task) -> Bool) {
         switch self {

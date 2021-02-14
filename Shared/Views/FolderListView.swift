@@ -13,6 +13,7 @@ struct FolderListView: View {
     @State var presentAddNewItem = false
     @State var showSignInForm = false
     @State var showUserView = false
+    @State var newFolderTitle = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -61,37 +62,12 @@ struct FolderListView: View {
 
     var pinnedFolders: some View {
         Section(header: Text("Pinned folders")) {
-            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .important))) {
-                HStack {
-                    Image(systemName: "star")
-                        .resizable()
-                        .frame(width: 25.0, height: 25.0)
-                    Text(PinnedFolder.important.rawValue)
-                }
-            }
-            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .today))) {
-                HStack {
-                    Image(systemName: "calendar")
-                        .resizable()
-                        .frame(width: 25.0, height: 25.0)
-                    Text(PinnedFolder.today.rawValue)
-                }
-            }
-            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .undelivered))) {
-                HStack {
-                    Image(systemName: "circle")
-                        .resizable()
-                        .frame(width: 25.0, height: 25.0)
-                    Text(PinnedFolder.undelivered.rawValue)
-                }
-            }
-            NavigationLink(destination: TaskListView(viewModel: TaskListViewModel(pinnedFolderType: .allToDos))) {
-                HStack {
-                    Image(systemName: "archivebox")
-                        .resizable()
-                        .frame(width: 25.0, height: 25.0)
-                    Text(PinnedFolder.allToDos.rawValue)
-                }
+            ForEach(PinnedFolder.allCases, id: \.id) { value in
+                FolderView(
+                    taskListViewModel: TaskListViewModel(pinnedFolderType: value),
+                    title: value.rawValue,
+                    systemImageName: value.getSystemImageName,
+                    size: 25.0)
             }
         }
     }
@@ -99,38 +75,34 @@ struct FolderListView: View {
     var myFolders: some View {
         Section(header: Text("Your folders")) {
             ForEach(viewModel.folderCellViewModels) { folderCellVM in
-                NavigationLink(
-                    destination: TaskListView(viewModel: TaskListViewModel(currentFolder: folderCellVM.folder)),
-                    label: {
-                    FolderCell(folderCellVM: folderCellVM)
-                })
+                FolderView(
+                    taskListViewModel: TaskListViewModel(currentFolder: folderCellVM.folder),
+                    title: folderCellVM.folder.title,
+                    systemImageName: "list.bullet",
+                    size: 15.0)
             }
             .onDelete(perform: {offsets in
                 viewModel.deleteFolders(at: offsets, folders: viewModel.folderCellViewModels)
             })
             if presentAddNewItem {
-                NewFolderCell(folderCellVM: FolderCellViewModel(folder: Folder(title: ""))) { folder in
-                    self.viewModel.addFolder(folder: folder)
-                    self.presentAddNewItem.toggle()
-                }
+                newFolderLine
             }
         }
     }
 
-//    var addFolderButton: some View {
-//        Button(action: {
-//            self.presentAddNewItem.toggle()
-//        }){
-//            HStack(alignment: .center){
-//                Spacer()
-//                Text("Add new folder")
-//                Image(systemName: "plus.circle.fill")
-//                    .resizable()
-//                    .frame(width: 20, height: 20)
-//            }
-//        }
-//        .padding(5)
-//    }
+    var newFolderLine: some View {
+        return VStack {
+            HStack {
+                Image(systemName: "list.bullet")
+                    .resizable()
+                    .frame(width: 15, height: 15)
+                TextField("Enter the folder name", text: $newFolderTitle, onCommit: {
+                    self.viewModel.addFolder(folder: Folder(title: newFolderTitle))
+                    self.presentAddNewItem.toggle()
+                })
+            }
+        }
+    }
 }
 
 struct MainMenuView_Previews: PreviewProvider {
@@ -139,36 +111,22 @@ struct MainMenuView_Previews: PreviewProvider {
     }
 }
 
-struct FolderCell: View {
-    @ObservedObject var folderCellVM: FolderCellViewModel
+struct FolderView: View {
+    var taskListViewModel: TaskListViewModel
+
+    var title: String
+
+    var systemImageName: String
+
+    var size: CGFloat
 
     var body: some View {
-        VStack {
+        NavigationLink(destination: TaskListView(viewModel: taskListViewModel)) {
             HStack {
-//                Image(systemName: "checkmark.circle.fill")
-                Image(systemName: "list.bullet")
+                Image(systemName: systemImageName)
                     .resizable()
-                    .frame(width: 15, height: 15)
-                Text(folderCellVM.folder.title)
-            }
-        }
-    }
-}
-
-struct NewFolderCell: View {
-    @ObservedObject var folderCellVM: FolderCellViewModel
-
-    var onCommit: (Folder) -> Void = { _ in }
-
-    var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "list.bullet")
-                    .resizable()
-                    .frame(width: 15, height: 15)
-                TextField("Enter the folder name", text: $folderCellVM.folder.title, onCommit: {
-                    self.onCommit(self.folderCellVM.folder)
-                })
+                    .frame(width: size, height: size)
+                Text(title)
             }
         }
     }
