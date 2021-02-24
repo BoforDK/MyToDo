@@ -31,23 +31,30 @@ class ImageCellViewModel: ObservableObject {
                     return
                 }
             }, receiveValue: { output in
-                self.image = output
+                if let image = UIImage(data: output) {
+                    self.image = image
+                } else {
+                    print("invalid image format")
+                }
             })
             .store(in: &cancellables)
     }
 
     func uploadImage(_ newImage: UIImage) {
-        storage.uploadImage(img: newImage)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("ImageCellViewModel: \(error)")
-                default:
-                    self.updateImage()
-                    return
-                }
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
+        if let newDataImage = newImage.jpegData(compressionQuality: 0.1) {
+            storage.uploadImage(imageData: newDataImage)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("ImageCellViewModel: \(error)")
+                    default:
+                        self.updateImage()
+                        return
+                    }
+                }, receiveValue: { _ in })
+                .store(in: &cancellables)
+        } else {
+            print("Error image format")
+        }
     }
-
 }

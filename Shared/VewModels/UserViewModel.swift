@@ -33,22 +33,26 @@ class UserViewModel: ObservableObject {
                     return
                 }
             }, receiveValue: { output in
-                self.image = output
+                self.image = UIImage(data: output)
             })
             .store(in: &cancellables)
     }
 
     func uploadImage(_ newImage: UIImage) {
-        storage.uploadImage(img: newImage)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("ImageCellViewModel: \(error)")
-                default:
-                    self.updateImage()
-                    return
-                }
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
+        if let newDataImage = newImage.jpegData(compressionQuality: 0.1) {
+            storage.uploadImage(imageData: newDataImage)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("ImageCellViewModel: \(error)")
+                    default:
+                        self.updateImage()
+                        return
+                    }
+                }, receiveValue: { _ in })
+                .store(in: &cancellables)
+        } else {
+            print("Error image format")
+        }
     }
 }
