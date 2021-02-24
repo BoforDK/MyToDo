@@ -11,14 +11,14 @@ import Combine
 
 class AuthenticationWithEmailAndPassword {
 
-    func signIn(email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
-        return Future<AuthDataResult, Error> { promise in
+    func signIn(email: String, password: String) -> AnyPublisher<AuthDataResult, AuthenticationError> {
+        return Future<AuthDataResult, AuthenticationError> { promise in
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if let error = error {
-                    return promise(.failure(error))
+                    return promise(.failure(.error(error)))
                 } else {
                     guard let authResult = authResult else {
-                        fatalError("authResult is nil")
+                        return promise(.failure(.invalidDownloadFormat("Result is nil")))
                     }
                     return promise(.success(authResult))
                 }
@@ -26,18 +26,23 @@ class AuthenticationWithEmailAndPassword {
         }.eraseToAnyPublisher()
     }
 
-    func createUser(email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
-        return Future<AuthDataResult, Error> { promise in
+    func createUser(email: String, password: String) -> AnyPublisher<AuthDataResult, AuthenticationError> {
+        return Future<AuthDataResult, AuthenticationError> { promise in
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let error = error {
-                    return promise(.failure(error))
+                    return promise(.failure(.error(error)))
                 } else {
                     guard let authResult = authResult else {
-                        fatalError("authResult is nil")
+                        return promise(.failure(.invalidDownloadFormat("Result is nil")))
                     }
                     return promise(.success(authResult))
                 }
             }
         }.eraseToAnyPublisher()
+    }
+
+    enum AuthenticationError: Error {
+        case error(Error)
+        case invalidDownloadFormat(String)
     }
 }
