@@ -18,7 +18,7 @@ class AuthenticationWithEmailAndPassword {
                     return promise(.failure(.error(error)))
                 } else {
                     guard let authResult = authResult else {
-                        return promise(.failure(.invalidDownloadFormat("Result is nil")))
+                        return promise(.failure(.invalidDownloadFormat))
                     }
                     return promise(.success(authResult))
                 }
@@ -33,7 +33,7 @@ class AuthenticationWithEmailAndPassword {
                     return promise(.failure(.error(error)))
                 } else {
                     guard let authResult = authResult else {
-                        return promise(.failure(.invalidDownloadFormat("Result is nil")))
+                        return promise(.failure(.invalidDownloadFormat))
                     }
                     return promise(.success(authResult))
                 }
@@ -43,6 +43,6 @@ class AuthenticationWithEmailAndPassword {
 
     enum AuthenticationError: Error {
         case error(Error)
-        case invalidDownloadFormat(String)
+        case invalidDownloadFormat
     }
 }

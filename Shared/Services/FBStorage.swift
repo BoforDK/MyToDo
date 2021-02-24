@@ -39,12 +39,12 @@ class FBStorage {
         }.eraseToAnyPublisher()
     }
 
-    func downloadImage(quality: ImageQuality = ImageQuality.theNormalest) -> AnyPublisher<Data, Error> {
+    func downloadImage(quality: ImageSize = ImageSize.medium) -> AnyPublisher<Data, Error> {
         return Future<Data, Error> { [weak self] promise in
-            guard let self = self else {
-                fatalError("download image err")
+            guard let strongSelf = self else {
+                return
             }
-            self.storage.reference().child(self.uid).getData(maxSize: quality.rawValue) { data, error in
+            strongSelf.storage.reference().child(strongSelf.uid).getData(maxSize: quality.rawValue) { data, error in
                 if let error = error {
                     return promise(.failure(StorageError.errorConnect(error)))
                 } else {
@@ -56,11 +56,11 @@ class FBStorage {
             }
         }.eraseToAnyPublisher()
     }
-    
-    enum ImageQuality: Int64 {
-        case theBest = 10485760
-        case theNormalest  = 5242880
-        case theWorst = 1048576
+
+    enum ImageSize: Int64 {
+        case large = 10485760
+        case medium  = 5242880
+        case icon = 1048576
     }
 
     enum StorageError: Error {
