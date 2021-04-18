@@ -21,14 +21,14 @@ class FBStorage {
         self.storage = storage
     }
 
-    func uploadImage(imageData: Data) -> AnyPublisher<StorageMetadata, Error> {
-        return Future<StorageMetadata, Error> { [weak self] promise in
+    func uploadImage(imageData: Data) -> AnyPublisher<StorageMetadata, StorageError> {
+        return Future<StorageMetadata, StorageError> { [weak self] promise in
             guard let strongSelf = self else {
                 return
             }
             strongSelf.storage.reference().child(strongSelf.uid).putData(imageData, metadata: nil) { metadata, error in
-                if let error = error {
-                    return promise(.failure(StorageError.errorConnect(error)))
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
                 } else {
                     guard let metadata = metadata else {
                         return promise(.failure(StorageError.invalidDownloadFormat))
@@ -39,17 +39,17 @@ class FBStorage {
         }.eraseToAnyPublisher()
     }
 
-    func downloadImage(quality: ImageSize = ImageSize.medium) -> AnyPublisher<Data, Error> {
-        return Future<Data, Error> { [weak self] promise in
+    func downloadImage(quality: ImageSize = ImageSize.medium) -> AnyPublisher<Data, StorageError> {
+        return Future<Data, StorageError> { [weak self] promise in
             guard let strongSelf = self else {
                 return
             }
             strongSelf.storage.reference().child(strongSelf.uid).getData(maxSize: quality.rawValue) { data, error in
-                if let error = error {
-                    return promise(.failure(StorageError.errorConnect(error)))
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
                 } else {
                     guard let data = data else {
-                        return promise(.failure(StorageError.invalidDownloadFormat))
+                        return promise(.failure(.invalidDownloadFormat))
                     }
                     return promise(.success(data))
                 }
@@ -65,6 +65,6 @@ class FBStorage {
 
     enum StorageError: Error {
         case invalidDownloadFormat
-        case errorConnect(Error)
+        case errorConnection(String)
     }
 }

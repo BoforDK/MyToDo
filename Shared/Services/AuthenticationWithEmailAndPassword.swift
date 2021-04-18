@@ -14,8 +14,8 @@ class AuthenticationWithEmailAndPassword {
     func signIn(email: String, password: String) -> AnyPublisher<AuthDataResult, AuthenticationError> {
         return Future<AuthDataResult, AuthenticationError> { promise in
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                if let error = error {
-                    return promise(.failure(.error(error)))
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
                 } else {
                     guard let authResult = authResult else {
                         return promise(.failure(.invalidDownloadFormat))
@@ -29,8 +29,8 @@ class AuthenticationWithEmailAndPassword {
     func createUser(email: String, password: String) -> AnyPublisher<AuthDataResult, AuthenticationError> {
         return Future<AuthDataResult, AuthenticationError> { promise in
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let error = error {
-                    return promise(.failure(.error(error)))
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
                 } else {
                     guard let authResult = authResult else {
                         return promise(.failure(.invalidDownloadFormat))
@@ -42,7 +42,7 @@ class AuthenticationWithEmailAndPassword {
     }
 
     enum AuthenticationError: Error {
-        case error(Error)
+        case errorConnection(String)
         case invalidDownloadFormat
     }
 }
