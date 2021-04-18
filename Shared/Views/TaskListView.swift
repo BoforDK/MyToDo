@@ -19,7 +19,7 @@ struct TaskListView: View {
         VStack(alignment: .leading) {
             List {
                 ForEach(viewModel.taskCellViewModels) { taskCellVM in
-                    TaskCell(taskCellVM: taskCellVM, showDetailsAction:  { taskCellVM in
+                    TaskCell(taskCellVM: taskCellVM, showDetailsAction: { taskCellVM in
                         showDetails = true
                         self.viewModel.taskDetails = taskCellVM
                     })
@@ -47,7 +47,7 @@ struct TaskListView: View {
 
     var newTaskButton: some View {
         HStack {
-            Image(systemName: "plus.circle.fill")
+            Image(systemName: SystemImageName.plus.rawValue)
                 .resizable()
                 .frame(width: 20, height: 20)
             Text("Add new Task")
@@ -75,6 +75,8 @@ struct ContentView_Previews: PreviewProvider {
 struct TaskCell: View {
     @ObservedObject var taskCellVM: TaskCellViewModel
 
+    var iconSize: CGFloat = 20
+
     var onCommit: (Task) -> Void = { _ in }
 
     var showDetailsAction: ((TaskCellViewModel) -> Void)?
@@ -99,27 +101,35 @@ struct TaskCell: View {
     }
 
     var checkmarkImage: some View {
-        Image(systemName: taskCellVM.task.completed ? "checkmark.circle.fill" : "circle")
+        Image(systemName: taskCellVM.task.completed ?
+                SystemImageName.checkmark.rawValue
+                :
+                SystemImageName.circle.rawValue
+        )
             .resizable()
-            .frame(width: 20, height: 20)
+            .frame(width: iconSize, height: iconSize)
             .onTapGesture {
                 self.taskCellVM.task.completed.toggle()
             }
     }
 
     var importantImage: some View {
-        Image(systemName: taskCellVM.task.isImportant ? "star.fill" : "star")
+        Image(systemName: taskCellVM.task.isImportant ?
+                SystemImageName.starFill.rawValue
+                :
+                SystemImageName.star.rawValue
+        )
             .resizable()
-            .frame(width: 20, height: 20)
+            .frame(width: iconSize, height: iconSize)
             .onTapGesture {
                 self.taskCellVM.task.isImportant.toggle()
             }
     }
 
     var editImage: some View {
-        Image(systemName: "pencil.tip")
+        Image(systemName: SystemImageName.pencil.rawValue)
             .resizable()
-            .frame(width: 20, height: 20)
+            .frame(width: iconSize, height: iconSize)
             .onTapGesture {
                 showDetailsAction?(taskCellVM)
             }

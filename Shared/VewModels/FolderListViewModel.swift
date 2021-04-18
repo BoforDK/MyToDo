@@ -81,19 +81,19 @@ enum PinnedFolder: String, Equatable, CaseIterable {
     case today = "Today"
     case undelivered = "Undelivered"
     case allToDos = "All ToDos"
-    
+
     var id: Self { self }
 
-    var getSystemImageName: String {
+    var getSystemImageName: SystemImageName {
         switch self {
         case .important:
-            return "star"
+            return .star
         case .today:
-            return "calendar"
+            return .calendar
         case .undelivered:
-            return "circle"
+            return .circle
         case .allToDos:
-            return "archivebox"
+            return .archivebox
         }
     }
 
@@ -116,4 +116,17 @@ enum PinnedFolder: String, Equatable, CaseIterable {
             return { _ in true }
         }
     }
+}
+
+enum SystemImageName: String {
+    case list = "list.bullet"
+    case star = "star"
+    case starFill = "star.fill"
+    case calendar = "calendar"
+    case circle = "circle"
+    case archivebox = "archivebox"
+    case plus = "plus.circle.fill"
+    case person = "person.circle"
+    case checkmark = "checkmark.circle.fill"
+    case pencil = "pencil.tip"
 }

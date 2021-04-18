@@ -42,7 +42,7 @@ struct FolderListView: View {
 
     var userButton: some View {
         ((viewModel.image == nil) ?
-            Image(systemName: "person.circle")
+            Image(systemName: SystemImageName.person.rawValue)
             :
             Image(uiImage: viewModel.image!)
         )
@@ -53,7 +53,7 @@ struct FolderListView: View {
     }
 
     var addFolderButton: some View {
-        Image(systemName: "plus.circle.fill")
+        Image(systemName: SystemImageName.plus.rawValue)
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 30.0, height: 30.0)
@@ -66,8 +66,8 @@ struct FolderListView: View {
                 FolderView(
                     taskListViewModel: TaskListViewModel(pinnedFolderType: value),
                     title: value.rawValue,
-                    systemImageName: value.getSystemImageName,
-                    size: 25.0)
+                    icon: Image(systemName: value.getSystemImageName.rawValue),
+                    size: .large)
             }
         }
     }
@@ -78,8 +78,8 @@ struct FolderListView: View {
                 FolderView(
                     taskListViewModel: TaskListViewModel(currentFolder: folderCellVM.folder),
                     title: folderCellVM.folder.title,
-                    systemImageName: "list.bullet",
-                    size: 15.0)
+                    icon: Image(systemName: SystemImageName.list.rawValue),
+                    size: .medium)
             }
             .onDelete(perform: {offsets in
                 viewModel.deleteFolders(at: offsets, folders: viewModel.folderCellViewModels)
@@ -93,7 +93,7 @@ struct FolderListView: View {
     var newFolderLine: some View {
         return VStack {
             HStack {
-                Image(systemName: "list.bullet")
+                Image(systemName: SystemImageName.list.rawValue)
                     .resizable()
                     .frame(width: 15, height: 15)
                 TextField("Enter the folder name", text: $newFolderTitle, onCommit: {
@@ -116,18 +116,23 @@ struct FolderView: View {
 
     var title: String
 
-    var systemImageName: String
+    var icon: Image
 
-    var size: CGFloat
+    var size: FolderViewSize
 
     var body: some View {
         NavigationLink(destination: TaskListView(viewModel: taskListViewModel)) {
             HStack {
-                Image(systemName: systemImageName)
+                icon
                     .resizable()
-                    .frame(width: size, height: size)
+                    .frame(width: size.rawValue, height: size.rawValue)
                 Text(title)
             }
         }
+    }
+
+    enum FolderViewSize: CGFloat {
+        case large = 25
+        case medium  = 15
     }
 }
