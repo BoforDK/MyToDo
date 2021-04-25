@@ -6,64 +6,65 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
 import Firebase
 import FirebaseStorage
 import FirebaseStorageSwift
 
 class FBStorage {
-    var uid: String
+    private var uid: String
 
-    let storage: Storage
+    private let storage: Storage
 
     init(uid: String, storage: Storage = Storage.storage() ) {
         self.uid = uid
         self.storage = storage
     }
 
-    func uploadImage(img: UIImage) -> AnyPublisher<String, Error> {
-        return Future<String, Error> { [weak self] promise in
-            guard let self = self else {
-                fatalError("upload image error")
+    func uploadImage(imageData: Data) -> AnyPublisher<StorageMetadata, StorageError> {
+        return Future<StorageMetadata, StorageError> { [weak self] promise in
+            guard let strongSelf = self else {
+                return
             }
-            if let imageData = img.jpegData(compressionQuality: CGFloat(0.1)) {
-                self.storage.reference().child(self.uid).putData(imageData, metadata: nil) { _, error in
-                    if let error = error {
-                        return promise(.failure(error))
-                    } else {
-                        return promise(.success("success"))
+            strongSelf.storage.reference().child(strongSelf.uid).putData(imageData, metadata: nil) { metadata, error in
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
+                } else {
+                    guard let metadata = metadata else {
+                        return promise(.failure(StorageError.invalidDownloadFormat))
                     }
+                    return promise(.success(metadata))
                 }
-            } else {
-                return promise(.failure(StorageError.invalidUpload("unwrap/case image to data")))
             }
         }.eraseToAnyPublisher()
     }
 
-    func downloadImage() -> AnyPublisher<UIImage, Error> {
-        return Future<UIImage, Error> { [weak self] promise in
-            guard let self = self else {
-                fatalError("download image err")
+    func downloadImage(quality: ImageSize = ImageSize.medium) -> AnyPublisher<Data, StorageError> {
+        return Future<Data, StorageError> { [weak self] promise in
+            guard let strongSelf = self else {
+                return
             }
-            self.storage.reference().child(self.uid).getData(maxSize: 10 * 1024 * 1024) { data, error in
-                if let error = error {
-                    return promise(.failure(error))
+            strongSelf.storage.reference().child(strongSelf.uid).getData(maxSize: quality.rawValue) { data, error in
+                if let message = error?.localizedDescription {
+                    return promise(.failure(.errorConnection(message)))
                 } else {
                     guard let data = data else {
-                        return promise(.failure(StorageError.invalidDownloadFormat))
+                        return promise(.failure(.invalidDownloadFormat))
                     }
-                    guard let img = UIImage(data: data) else {
-                        return promise(.failure(StorageError.invalidDownloadFormat))
-                    }
-                    return promise(.success(img))
+                    return promise(.success(data))
                 }
             }
         }.eraseToAnyPublisher()
     }
-}
 
-enum StorageError: Error {
-    case invalidUpload(String)
-    case invalidDownloadFormat
+    enum ImageSize: Int64 {
+        case large = 10485760
+        case medium  = 5242880
+        case icon = 1048576
+    }
+
+    enum StorageError: Error {
+        case invalidDownloadFormat
+        case errorConnection(String)
+    }
 }

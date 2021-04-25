@@ -70,7 +70,7 @@ class FolderListViewModel: ObservableObject {
                     return
                 }
             }, receiveValue: { output in
-                self.image = output
+                self.image = UIImage(data: output)
             })
             .store(in: &cancellables)
     }
